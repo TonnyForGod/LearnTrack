@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics Career Accelerator | LearnTrack</title>
+    <link rel="styleHeet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="styleHeet">
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary-dark: #1a237e;
+            --primary-base: #3949ab;
+            --primary-light: #7986cb;
+            
+            /* Accents & Rewards */
+            --accent-gold: #ffc107;
+            --accent-teal: #26c6da;
+            --accent-purple: #9c27b0;
+            
+            /* Neutrals */
+            --neutral-dark: #263238;
+            --neutral-mid: #546e7a;
+            --neutral-light: #f5f7fa;
+            --neutral-white: #ffffff;
+            
+            /* Gradients */
+            --hero-gradient: linear-gradient(135deg, #1a237e 0%, #26c6da 100%);
+            --analytics-gradient: linear-gradient(135deg, #3949ab 0%, #26c6da 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            background: var(--primary-dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent-gold);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        /* Header Section */
+        .course-header {
+            background: var(--analytics-gradient);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .course-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .course-tag {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-title {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .course-tagline {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .price-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .price-discounted {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--neutral-dark);
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: #ffca28;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .enrollment-note {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-base);
+            position: relative;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+        
+        /* Learning Points */
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+        
+        .learning-card {
+            background: var(--neutral-white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .learning-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-teal);
+        }
+        
+        .learning-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .learning-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .learning-card p {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .learning-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.8rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+        }
+        
+        /* Course Outline */
+        .outline-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .module {
+            margin-bottom: 2.5rem;
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            color: var(--primary-base);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-title i {
+            margin-right: 10px;
+            color: var(--accent-gold);
+        }
+        
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .topic {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            transition: background 0.3s ease;
+        }
+        
+        .topic:hover {
+            background: rgba(38, 198, 218, 0.05);
+        }
+        
+        .topic i {
+            color: var(--accent-teal);
+            margin-right: 12px;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .topic-content h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .topic-content p {
+            color: var(--neutral-mid);
+            font-size: 0.95rem;
+        }
+        
+        /* Video Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 900px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: var(--accent-teal);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Instructor Section */
+        .instructor-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
+        }
+        
+        .instructor-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--neutral-light);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .instructor-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .instructor-title {
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instructor-bio {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(38, 198, 218, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--neutral-mid);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .author-role {
+            color: var(--neutral-mid);
+            font-size: 0.9rem;
+        }
+        
+        /* Enrollment Section */
+        .enrollment-section {
+            background: var(--primary-base);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            margin: 5rem auto;
+            max-width: 1000px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enrollment-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+        
+        .enrollment-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .enrollment-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--neutral-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-teal);
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-base);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .learning-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .instructor-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-header {
+                padding: 3rem 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+        
+        /* Decorative Elements */
+        .circle-deco {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.1);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(38, 198, 218, 0.1);
+            bottom: -100px;
+            left: -50px;
+        }
+        
+        .breadcrumbs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .breadcrumb-divider {
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            LearnTrack
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Courses.html">Courses</a>
+            <li><a href=" community2.html">Community</a></li>
+            <a href="UserProfile.html">Profile</a>
+        </div>
+    </nav>
+    
+    <!-- Header Section -->
+    <header class="course-header">
+        <div class="circle-deco circle-1"></div>
+        <div class="circle-deco circle-2"></div>
+        
+        <div class="course-header-content">
+            <div class="course-tag">Career Accelerator</div>
+            <h1 class="course-title">Data Analytics Mastery Program</h1>
+            <p class="course-tagline">Transform raw data into powerful insights. Master SQL, Python, visualization tools, and statistical analysis to drive business decisions.</p>
+        
+        <div class="breadcrumbs">
+            <div class="breadcrumb-item">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+            </div>
+            <div class="breadcrumb-divider">/</div>
+            <div class="breadcrumb-item">
+                <a href="Courses.html">Courses</a>
+            </div>
+            <div class="breadcrumb-divider">/</div>
+            <div class="breadcrumb-item">
+                <a href="DataAnalytics.html">Data Analytics</a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="section-title">What You'll Learn</h2>
+        
+        <div class="learning-grid">
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Data Wrangling & Cleaning</h3>
+                <p>Master techniques to acquire, clean, and transform messy data into structured formats ready for analysis.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Data Visualization</h3>
+                <p>Create compelling visualizations using tools like Tableau, Power BI, and Python libraries to communicate insights effectively.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h3>Statistical Analysis</h3>
+                <p>Apply statistical methods to analyze data, test hypotheses, and draw meaningful conclusions.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Predictive Analytics</h3>
+                <p>Build machine learning models to forecast trends and make data-driven predictions.</p>
+            </div>
+        </div>
+        
+        <h2 class="section-title">Course Curriculum</h2>
+        
+        <div class="outline-container">
+            <div class="module">
+                <h3 class="module-title"><i class="fas fa-layer-group"></i> Foundations of Data Analysis</h3>
+                <div class="topics">
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Data Types & Structures">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Data Types & Structures</h4>
+                            <p>Understanding different data formats and organizing data effectively</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="SQL Fundamentals">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>SQL Fundamentals</h4>
+                            <p>Querying databases with SELECT statements, joins, and aggregations</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Excel for Data Analysis">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Excel for Data Analysis</h4>
+                            <p>Pivot tables, advanced formulas, and data manipulation techniques</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="module">
+                <h3 class="module-title"><i class="fas fa-chart-bar"></i> Data Visualization</h3>
+                <div class="topics">
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Tableau Fundamentals">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Tableau Fundamentals</h4>
+                            <p>Creating interactive dashboards and visual analytics</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Power BI Essentials">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Power BI Essentials</h4>
+                            <p>Data modeling, DAX formulas, and report building</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Python Visualization">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Python Visualization</h4>
+                            <p>Matplotlib, Seaborn, and Plotly for advanced visualizations</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="module">
+                <h3 class="module-title"><i class="fas fa-flask"></i> Statistical Analysis</h3>
+                <div class="topics">
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Descriptive Statistics">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Descriptive Statistics</h4>
+                            <p>Measures of central tendency, dispersion, and distributions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Inferential Statistics">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Inferential Statistics</h4>
+                            <p>Hypothesis testing, confidence intervals, and statistical significance</p>
+                        </div>
+                    </div>
+                    
+                    <div class="topic" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ" data-title="Regression Analysis">
+                        <i class="fas fa-play-circle"></i>
+                        <div class="topic-content">
+                            <h4>Regression Analysis</h4>
+                            <p>Linear and logistic regression for predictive modeling</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Instructor Section -->
+        <h2 class="section-title">Your Instructor</h2>
+        
+        <div class="instructor-section">
+          
+            <div class="instructor-info">
+                <h3>Dr. Mauwa</h3>
+                <div class="instructor-title">Lead Data Scientist at Insight Analytics</div>
+                <p class="instructor-bio">With 12 years of experience in data analytics across finance, healthcare, and e-commerce industries, Dr. Mauwa brings real-world expertise to the classroom. He holds a PhD in Computational Statistics and has publiHed numerous papers on predictive modeling. As a former analytics consultant for Fortune 500 companies, He bridges the gap between academic theory and business application.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Enrollment Section -->
+        <div id="enroll" class="enrollment-section">
+            <h2 class="enrollment-title">Start Your Data Analytics Journey Today</h2>
+            <div class="enrollment-content">
+                <p>Join thousands of students who have transformed their careers with our comprehensive Data Analytics program. Limited seats available for the next cohort starting June 15.</p>
+                
+                <div class="price-container">
+                    <span class="price-original">R1,799.95</span>
+                    <span class="price-discounted">R899.97</span>
+                </div>
+                
+                <p>50% discount ends in 5 days</p>
+                <a href="checkout2.html" class="cta-button">Enroll Now</a>
+                
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About LearnTrack</h3>
+                <p>LearnTrack bridges education and opportunity — where every lesson completed unlocks real-world value.</p>
+                <p> </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@LearnTrack.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Popular Courses</h3>
+                <p><a href="#" style="color: white;">Data Science Professional</a></p>
+                <p><a href="#" style="color: white;">Business Intelligence</a></p>
+                <p><a href="#" style="color: white;">Machine Learning Fundamentals</a></p>
+                <p><a href="#" style="color: white;">Cloud Engineering & DevOps</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive course updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email address" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: var(--radius-sm); border: none; background: rgba(255,255,255,0.1); color: white;">
+                    <button class="cta-button" style="width: 100%; margin-top: 10px;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 LearnTrack. All rights reserved.  </p>
+        </div>
+    </footer>
+    
+    <!-- Video Modal -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Course Video</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="video-container">
+                <iframe id="videoFrame" src="" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Video Modal Functionality
+        const modal = document.getElementById('videoModal');
+        const videoFrame = document.getElementById('videoFrame');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModal');
+        const topics = document.querySelectorAll('.topic');
+        
+        // Open modal and set video
+        topics.forEach(topic => {
+            topic.addEventListener('click', () => {
+                const videoUrl = topic.getAttribute('data-video');
+                const title = topic.getAttribute('data-title');
+                
+                // Set video and title
+                videoFrame.src = videoUrl;
+                modalTitle.textContent = title;
+                
+                // Show modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            videoFrame.src = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                videoFrame.src = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation for stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Animation for learning cards
+        const learningCards = document.querySelectorAll('.learning-card');
+        learningCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px)';
+                card.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            });
+        });
+        
+        // Highlight topics with video
+        topics.forEach(topic => {
+            topic.addEventListener('mouseenter', () => {
+                topic.querySelector('i').style.transform = 'scale(1.2)';
+                topic.querySelector('i').style.color = '#ffc107';
+            });
+            
+            topic.addEventListener('mouseleave', () => {
+                topic.querySelector('i').style.transform = 'scale(1)';
+                topic.querySelector('i').style.color = '#26c6da';
+            });
+        });
+    </script>
+</body>
+</html>

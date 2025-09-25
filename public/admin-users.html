@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTrack - Admin User Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #00c6ff;
+        }
+
+        .btn-login:hover {
+            background: rgba(0, 198, 255, 0.1);
+        }
+
+        .btn-signup {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* Admin Dashboard Styles */
+        .admin-dashboard {
+            display: flex;
+            min-height: calc(100vh - 160px);
+        }
+
+        .admin-sidebar {
+            width: 250px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-sidebar h2 {
+            padding: 0 20px 20px;
+            font-size: 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(0, 198, 255, 0.1);
+            border-left: 4px solid #00c6ff;
+        }
+
+        .sidebar-menu i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .admin-content {
+            flex: 1;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .admin-header h1 {
+            font-size: 28px;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-bar input {
+            padding: 10px 15px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 250px;
+        }
+
+        .search-bar input::placeholder {
+            color: #aaa;
+        }
+
+        .btn-admin {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-admin:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* User Table Styles */
+        .users-table {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .table-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+            padding: 15px 20px;
+            background: rgba(0, 198, 255, 0.2);
+            font-weight: 600;
+        }
+
+        .user-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+        }
+
+        .user-row:last-child {
+            border-bottom: none;
+        }
+
+        .user-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .user-email {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .user-role {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .role-student {
+            background: rgba(0, 198, 255, 0.2);
+            color: #00c6ff;
+        }
+
+        .role-instructor {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .role-admin {
+            background: rgba(233, 30, 99, 0.2);
+            color: #e91e63;
+        }
+
+        .user-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .status-active {
+            background: #4caf50;
+        }
+
+        .status-inactive {
+            background: #f44336;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .action-btn {
+            background: transparent;
+            border: none;
+            color: #aaa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px;
+        }
+
+        .action-btn:hover {
+            color: #00c6ff;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination button.active {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+        }
+
+        .pagination button:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+
+        .footer-info p {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+
+        .contact-item i {
+            color: #00c6ff;
+            font-size: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00c6ff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .admin-dashboard {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                padding: 20px 0;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+            }
+            
+            .sidebar-menu li {
+                margin-bottom: 0;
+                margin-right: 10px;
+            }
+            
+            .sidebar-menu a {
+                white-space: nowrap;
+                border-left: none;
+                border-bottom: 4px solid transparent;
+            }
+            
+            .sidebar-menu a.active {
+                border-left: none;
+                border-bottom: 4px solid #00c6ff;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .table-header, .user-row {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            
+            .table-header div:nth-child(3),
+            .table-header div:nth-child(4),
+            .table-header div:nth-child(5),
+            .user-row div:nth-child(3),
+            .user-row div:nth-child(4),
+            .user-row div:nth-child(5) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .table-header, .user-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .table-header div:nth-child(2),
+            .user-row div:nth-child(2) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="logo-text">LearnTrack</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Courses.html">Explore Courses</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                    <li><a href="admin-users.html" class="active">Admin</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="login.html" class="btn btn-login">Log out</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard">
+        <!-- Sidebar -->
+        <div class="admin-sidebar">
+            <h2>Admin Dashboard</h2>
+            <ul class="sidebar-menu">
+                <li><a href="admin-dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="admin-users.html" class="active"><i class="fas fa-users"></i> User Management</a></li>
+                <li><a href="admin-courses.html"><i class="fas fa-book"></i> Course Management</a></li>
+                <li><a href="admin-certificates.html"><i class="fas fa-certificate"></i> Certificates</a></li>
+                <li><a href="admin-reports.html"><i class="fas fa-chart-bar"></i> Reports & Analytics</a></li>
+                <li><a href="admin-settings.html"><i class="fas fa-cog"></i> System Settings</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-content">
+            <div class="admin-header">
+                <h1>User Management</h1>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search users...">
+                    <button class="btn-admin">Add New User</button>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="users-table">
+                <div class="table-header">
+                    <div>User</div>
+                    <div>Role</div>
+                    <div>Registration Date</div>
+                    <div>Courses Enrolled</div>
+                    <div>Status</div>
+                    <div>Actions</div>
+                </div>
+
+                <!-- User Row 1 -->
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">JD</div>
+                        <div class="user-details">
+                            <div class="user-name">John Doe</div>
+                            <div class="user-email">john.doe@example.com</div>
+                        </div>
+                    </div>
+                    <div><span class="user-role role-student">Student</span></div>
+                    <div>2025-03-15</div>
+                    <div>3</div>
+                    <div class="user-status">
+                        <div class="status-indicator status-active"></div>
+                        <span>Active</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- User Row 2 -->
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">SJ</div>
+                        <div class="user-details">
+                            <div class="user-name">Sarah Johnson</div>
+                            <div class="user-email">sarah.j@example.com</div>
+                        </div>
+                    </div>
+                    <div><span class="user-role role-instructor">Instructor</span></div>
+                    <div>2025-02-10</div>
+                    <div>2</div>
+                    <div class="user-status">
+                        <div class="status-indicator status-active"></div>
+                        <span>Active</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- User Row 3 -->
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">MB</div>
+                        <div class="user-details">
+                            <div class="user-name">Michael Brown</div>
+                            <div class="user-email">m.brown@example.com</div>
+                        </div>
+                    </div>
+                    <div><span class="user-role role-admin">Admin</span></div>
+                    <div>2025-01-05</div>
+                    <div>0</div>
+                    <div class="user-status">
+                        <div class="status-indicator status-active"></div>
+                        <span>Active</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- User Row 4 -->
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">EW</div>
+                        <div class="user-details">
+                            <div class="user-name">Emma Wilson</div>
+                            <div class="user-email">emma.w@example.com</div>
+                        </div>
+                    </div>
+                    <div><span class="user-role role-student">Student</span></div>
+                    <div>2025-04-20</div>
+                    <div>1</div>
+                    <div class="user-status">
+                        <div class="status-indicator status-inactive"></div>
+                        <span>Inactive</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- User Row 5 -->
+                <div class="user-row">
+                    <div class="user-info">
+                        <div class="user-avatar">DR</div>
+                        <div class="user-details">
+                            <div class="user-name">David Rodriguez</div>
+                            <div class="user-email">d.rodriguez@example.com</div>
+                        </div>
+                    </div>
+                    <div><span class="user-role role-instructor">Instructor</span></div>
+                    <div>2025-03-01</div>
+                    <div>1</div>
+                    <div class="user-status">
+                        <div class="status-indicator status-active"></div>
+                        <span>Active</span>
+                    </div>
+                    <div class="user-actions">
+                        <button class="action-btn" title="Edit"><i class="fas fa-edit"></i></button>
+                        <button class="action-btn" title="Delete"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="active">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>4</button>
+                <button>5</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>University of Mpumalanga</h3>
+                    <p>LearnTrack connects students and lecturers in a thriving educational marketplace. Learn, earn, and grow—all in one place!</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>LearnTrack@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>011 256 7001</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support Center</a>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <a href="#">Blog</a>
+                    <a href="#">Events</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Community</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 LearnTrack. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Basic functionality for the admin interface
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality
+            const searchInput = document.querySelector('.search-bar input');
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                const userRows = document.querySelectorAll('.user-row');
+                
+                userRows.forEach(row => {
+                    const userName = row.querySelector('.user-name').textContent.toLowerCase();
+                    const userEmail = row.querySelector('.user-email').textContent.toLowerCase();
+                    
+                    if (userName.includes(searchTerm) || userEmail.includes(searchTerm)) {
+                        row.style.display = 'grid';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+
+            // Edit button functionality
+            const editButtons = document.querySelectorAll('.action-btn .fa-edit');
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userName = this.closest('.user-row').querySelector('.user-name').textContent;
+                    alert(`Edit user: ${userName}`);
+                    // In a real application, this would open a modal or redirect to an edit page
+                });
+            });
+
+            // Delete button functionality
+            const deleteButtons = document.querySelectorAll('.action-btn .fa-trash');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const userName = this.closest('.user-row').querySelector('.user-name').textContent;
+                    if (confirm(`Are you sure you want to delete ${userName}?`)) {
+                        // In a real application, this would send a delete request to the server
+                        this.closest('.user-row').remove();
+                    }
+                });
+            });
+
+            // Add New User button
+            const addUserButton = document.querySelector('.btn-admin');
+            addUserButton.addEventListener('click', function() {
+                alert('Open add user form');
+                // In a real application, this would open a modal or redirect to an add user page
+            });
+        });
+    </script>
+</body>
+</html>

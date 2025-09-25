@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About LearnTrack - Transforming Education in South Africa</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: #00c6ff;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #00c6ff;
+        }
+
+        .btn-login:hover {
+            background: rgba(0, 198, 255, 0.1);
+        }
+
+        .btn-signup {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* About Hero Section */
+        .about-hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .about-hero h1 {
+            font-size: 48px;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .about-hero p {
+            font-size: 22px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+        }
+
+        .highlight {
+            color: #00c6ff;
+            font-weight: 600;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 70px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            font-weight: 700;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .challenge-card {
+            background: rgba(15, 15, 30, 0.7);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .challenge-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 114, 255, 0.3);
+        }
+
+        .challenge-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+
+        .challenge-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00c6ff;
+        }
+
+        .solution-section {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            padding: 50px;
+            margin: 50px 0;
+            border: 1px solid rgba(0, 198, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solution-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 198, 255, 0.05), rgba(0, 114, 255, 0.05));
+            z-index: -1;
+        }
+
+        .solution-section h2 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: #00c6ff;
+            text-align: center;
+        }
+
+        .solution-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .solution-text {
+            flex: 1;
+        }
+
+        .solution-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .solution-features {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: rgba(15, 15, 30, 0.7);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 198, 255, 0.2);
+        }
+
+        .feature-card i {
+            font-size: 36px;
+            color: #00c6ff;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* University Specifics */
+        .university-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .university-card {
+            background: rgba(15, 15, 30, 0.7);
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid rgba(0, 198, 255, 0.2);
+        }
+
+        .university-card i {
+            font-size: 48px;
+            color: #00c6ff;
+            margin-bottom: 20px;
+        }
+
+        .university-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00c6ff;
+        }
+
+        /* Impact Section */
+        .impact-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 60px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 250px;
+            margin: 20px;
+        }
+
+        .stat-value {
+            font-size: 60px;
+            font-weight: 800;
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 20px;
+            color: #e0e0e0;
+        }
+
+        .impact-content {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 30px;
+            border: 1px solid rgba(0, 198, 255, 0.3);
+        }
+
+        .impact-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00c6ff;
+        }
+
+        .footer-info p {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+
+        .contact-item i {
+            color: #00c6ff;
+            font-size: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #00c6ff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .solution-content {
+                flex-direction: column;
+            }
+            
+            .solution-features {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .about-hero h1 {
+                font-size: 36px;
+            }
+            
+            .about-hero p {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .solution-section {
+                padding: 30px;
+            }
+            
+            .solution-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .about-hero h1 {
+                font-size: 32px;
+            }
+            
+            .stat-value {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="logo-text">LearnTrack</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Courses.html">Explore Courses</a></li>
+                       <li><a href="community2.html">Community</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                </ul>
+                <div class="nav-buttons">
+                    <a href="signup.html" class="btn btn-login">Log in</a>
+                    <a href="login.html" class="btn btn-signup">Sign up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>Transforming Education in South Africa</h1>
+            <p>LearnTrack is an <span class="highlight">innovative solution</span> that bridges critical gaps in higher education through a <span class="highlight">student-centric ecosystem</span> combining gamified learning, peer-to-peer knowledge monetization, and blockchain-powered certification.</p>
+        </div>
+    </section>
+
+    <!-- Challenges Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Systemic Challenges in South African Education</h2>
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Declining Engagement</h3>
+                    <p>Students struggle with decreasing motivation and engagement in digital learning environments.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-money-bill-wave"></i>
+                    </div>
+                    <h3>Financial Pressures</h3>
+                    <p>High costs of study materials create significant barriers to quality education access.</p>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="challenge-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Employment Skills Gap</h3>
+                    <p>Graduates lack recognized skills that employers value in the competitive job market.</p>
+                </div>
+            </div>
+            
+            <div class="solution-section">
+                <h2>The LearnTrack Solution</h2>
+                <div class="solution-content">
+                    <div class="solution-text">
+                        <p>The <span class="highlight">LearnTrack Platform</span> emerges as an innovative solution, bridging these gaps through a <span class="highlight">student-centric ecosystem</span> that combines:</p>
+                        <p><span class="highlight">Gamified learning</span> to increase engagement and motivation, <span class="highlight">peer-to-peer knowledge monetization</span> to alleviate financial pressures, and <span class="highlight">blockchain-powered certification</span> to provide trusted, verifiable credentials.</p>
+                        <p>Developed initially for the University of Mpumalanga (UoM), LearnTrack addresses local realities while creating a scalable model for South African higher education.</p>
+                    </div>
+                    <div class="solution-features">
+                        <div class="feature-card">
+                            <i class="fas fa-gamepad"></i>
+                            <h3>Gamified Learning</h3>
+                            <p>Interactive experiences that boost engagement and motivation</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-exchange-alt"></i>
+                            <h3>Peer-to-Peer Marketplace</h3>
+                            <p>Students create, share, and monetize educational content</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-link"></i>
+                            <h3>Blockchain Certification</h3>
+                            <p>Tamper-proof credentials trusted by employers</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h3>Student-Centric Ecosystem</h3>
+                            <p>Designed around the real needs of South African students</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- University Specifics -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Addressing Local Realities</h2>
+            <div class="university-grid">
+                <div class="university-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Load-shedding Resistant</h3>
+                    <p>Offline-first design ensures uninterrupted access during power outages</p>
+                </div>
+                
+                <div class="university-card">
+                    <i class="fas fa-language"></i>
+                    <h3>Multilingual Support</h3>
+                    <p>Supports all 11 official South African languages</p>
+                </div>
+                
+                <div class="university-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>SAQA Compliance</h3>
+                    <p>Employers trust its tamper-proof digital credentials</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Proven Impact</h2>
+            
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <div class="stat-value">30%</div>
+                    <div class="stat-label">Increase in course completion</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-value">R200+</div>
+                    <div class="stat-label">Monthly earnings for student contributors</div>
+                </div>
+                
+                <div class="stat-item">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Employer trust in credentials</div>
+                </div>
+            </div>
+            
+            <div class="impact-content">
+                <p>By enabling students to <span class="highlight">learn, earn, and certify</span> their skills, LearnTrack redefines education as a pathway to both <span class="highlight">academic and financial empowerment</span>.</p>
+                <p>Early pilots at the University of Mpumalanga demonstrate the platform's effectiveness and potential to scale across South African universities.</p>
+                <p>This document outlines the platform's technical and functional requirements, ensuring alignment with <span class="highlight">national education goals</span> and <span class="highlight">local user needs</span>.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>University of Mpumalanga</h3>
+                    <p>LearnTrack connects students and lecturers in a thriving educational marketplace. Learn, earn, and grow—all in one place!</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>LearnTrack@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>011 256 7001</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support Center</a>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <a href="#">Blog</a>
+                    <a href="#">Events</a>
+                    <a href="#">Tutorials</a>
+                    <a href="community2.html">Community</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 LearnTrack. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

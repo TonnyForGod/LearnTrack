@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout | LearnTrack</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css"> <!-- You can reuse your main CSS file -->
+<style>
+.checkout-container {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: var(--neutral-white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+.section-title {
+    text-align: left;
+}
+.order-summary {
+    background: var(--neutral-light);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+}
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+.order-total {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    text-align: right;
+}
+form label {
+    font-weight: 600;
+    display: block;
+    margin: 0.8rem 0 0.4rem;
+}
+form input {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--neutral-mid);
+    font-size: 1rem;
+}
+.payment-icons {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+.payment-icons i {
+    font-size: 2rem;
+    color: var(--primary-base);
+}
+.cta-button {
+    margin-top: 1.5rem;
+}
+@media (max-width: 768px) {
+    .checkout-container {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="top-nav">
+    <a href="index.html" class="logo"><i class="fas fa-graduation-cap"></i> LearnTrack</a>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="Courses.html">Courses</a>
+        <a href="UserProfile.html">Profile</a>
+    </div>
+</nav>
+
+<!-- Checkout Section -->
+<main class="checkout-container">
+    <!-- Billing Info -->
+    <div>
+        <h2 class="section-title">Billing Information</h2>
+        <form>
+            <label>Full Name</label>
+            <input type="text" placeholder="John Doe" required>
+            <label>Email Address</label>
+            <input type="email" placeholder="you@example.com" required>
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+27 123 456 789" required>
+            <label>Billing Address</label>
+            <input type="text" placeholder="123 Main Street" required>
+            <label>City</label>
+            <input type="text" placeholder="Cape Town" required>
+            <label>Postal Code</label>
+            <input type="text" placeholder="8001" required>
+        </form>
+
+        <h2 class="section-title" style="margin-top:2rem;">Payment Details</h2>
+        <div class="payment-icons">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+        </div>
+        <form>
+            <label>Card Number</label>
+            <input type="text" placeholder="1234 5678 9012 3456" required>
+            <label>Expiry Date</label>
+            <input type="text" placeholder="MM/YY" required>
+            <label>CVV</label>
+            <input type="text" placeholder="123" required>
+        </form>
+        <button class="cta-button" style="width:100%;">Complete Purchase</button>
+    </div>
+
+    <!-- Order Summary -->
+    <div>
+        <h2 class="section-title">Order Summary</h2>
+        <div class="order-summary">
+            <div class="order-item">
+                <span>Internet of Things Mastery Program</span>
+                <span>R899.97</span>
+            </div>
+            <div class="order-item">
+                <span>Discount</span>
+                <span>-R0.00</span>
+            </div>
+            <div class="order-total">Total: R899.97</div>
+        </div>
+        <p style="margin-top:1rem;font-size:0.9rem;color:var(--neutral-mid);">
+            By completing your purchase, you agree to our <a href="#">Terms & Conditions</a> and <a href="#">Refund Policy</a>.
+        </p>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About LearnTrack</h3>
+            <p>LearnTrack bridges education and opportunity — where every lesson completed unlocks real-world value.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <p><i class="fas fa-envelope"></i> support@LearnTrack.com</p>
+        </div>
+    </div>
+    <div class="copyright">
+        &copy; 2025 LearnTrack. All rights reserved.
+    </div>
+</footer>
+
+</body>
+</html>

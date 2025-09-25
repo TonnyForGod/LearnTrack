@@ -1,0 +1,11 @@
+graph LR
+    A[CloudFront CDN] --> B[API Gateway]
+    B --> C[EC2 Instances]
+    C --> D[Elastic Load Balancer]
+    D --> E[Auto Scaling Group]
+    E --> F[EC2 - Service 1]
+    E --> G[EC2 - Service 2]
+    F --> H[RDS - MySQL]
+    G --> I[ElastiCache - Redis]
+    F --> J[S3 Bucket]
+    G --> J

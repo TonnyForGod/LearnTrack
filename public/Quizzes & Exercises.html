@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Quizzes & Exercises | LearnTrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary-dark: #1a237e;
+            --primary-base: #3949ab;
+            --primary-light: #7986cb;
+            
+            /* Accents & Rewards */
+            --accent-gold: #ffc107;
+            --accent-teal: #26c6da;
+            --accent-purple: #9c27b0;
+            
+            /* Neutrals */
+            --neutral-dark: #263238;
+            --neutral-mid: #546e7a;
+            --neutral-light: #f5f7fa;
+            --neutral-white: #ffffff;
+            
+            /* Gradients */
+            --hero-gradient: linear-gradient(135deg, var(--primary-dark) 0%, #6a11cb 100%);
+            --iot-gradient: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            background: var(--primary-dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent-gold);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: var(--iot-gradient);
+            color: white;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .page-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .course-tag {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .page-title {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .page-subtitle {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .breadcrumbs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .breadcrumb-divider {
+            margin: 0 0.5rem;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-base);
+            position: relative;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+        
+        /* Quizzes & Exercises Section */
+        .quizzes-section {
+            margin: 6rem 0;
+        }
+        
+        .quizzes-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 0.4rem solid var(--accent-teal);
+        }
+        
+        .quizzes-container:hover {
+            transform: translateY(-0.6rem);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .quizzes-header {
+            background: linear-gradient(135deg, var(--accent-teal), #0097a7);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .quizzes-header i {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            margin-bottom: 1.2rem;
+        }
+        
+        .quizzes-header h3 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+        }
+        
+        .quizzes-content {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .quizzes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+        
+        .quiz-card {
+            background: #f8f9fa;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            text-align: left;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
+        }
+        
+        .quiz-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+            border-color: var(--accent-teal);
+        }
+        
+        .quiz-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #e0f7fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-teal);
+            font-size: 1.5rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .quiz-title {
+            color: var(--primary-dark);
+            margin-bottom: 0.8rem;
+            font-size: 1.3rem;
+        }
+        
+        .quiz-description {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+        
+        .quiz-info {
+            display: flex;
+            justify-content: space-between;
+            color: var(--neutral-mid);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quiz-info span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        
+        .quiz-button {
+            display: inline-block;
+            background: var(--accent-teal);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .quiz-button:hover {
+            background: #0097a7;
+            transform: translateY(-2px);
+        }
+        
+        .exercises-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            border-top: 0.4rem solid var(--accent-gold);
+            margin-top: 3rem;
+        }
+        
+        .exercises-container:hover {
+            transform: translateY(-0.6rem);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .exercises-header {
+            background: linear-gradient(135deg, var(--accent-gold), #ff8f00);
+            color: var(--neutral-dark);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .exercises-header i {
+            font-size: clamp(2.5rem, 4vw, 3rem);
+            margin-bottom: 1.2rem;
+        }
+        
+        .exercises-header h3 {
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 700;
+        }
+        
+        .exercises-content {
+            padding: 2.5rem;
+        }
+        
+        .exercise-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-item:hover {
+            background: #fff8e1;
+        }
+        
+        .exercise-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #fff8e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        
+        .exercise-info {
+            flex-grow: 1;
+        }
+        
+        .exercise-title {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .exercise-description {
+            color: var(--neutral-mid);
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+        
+        .exercise-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .exercise-tag {
+            background: #f5f7fa;
+            color: var(--neutral-mid);
+            padding: 0.3rem 0.8rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .exercise-button {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--neutral-dark);
+            padding: 0.6rem 1.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 1rem;
+        }
+        
+        .exercise-button:hover {
+            background: #ffb300;
+            transform: translateY(-2px);
+        }
+        
+        .progress-container {
+            background: #f0f4f8;
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .progress-title {
+            font-size: 1.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-teal);
+            width: 65%; /* Example progress */
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--neutral-mid);
+            font-weight: 500;
+        }
+        
+        /* Stats Cards */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .stat-card i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--accent-purple);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-base);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--neutral-mid);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--neutral-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-teal);
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-base);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .exercise-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .exercise-button {
+                margin: 1rem 0 0 0;
+            }
+            
+            .exercise-icon {
+                margin: 0 auto 1rem;
+            }
+        }
+        
+        /* Decorative Elements */
+        .circle-deco {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.1);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(38, 198, 218, 0.1);
+            bottom: -100px;
+            left: -50px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            LearnTrack
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Courses.html">Courses</a>
+            <a href="#">Instructors</a>
+          
+    </nav>
+    
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="circle-deco circle-1"></div>
+        <div class="circle-deco circle-2"></div>
+        
+        <div class="page-header-content">
+            <div class="course-tag">Interactive Learning</div>
+            <h1 class="page-title">IoT Quizzes & Exercises</h1>
+            <p class="page-subtitle">Test your knowledge and practice your skills with our interactive quizzes and hands-on exercises</p>
+            
+            <div class="breadcrumbs">
+                <div class="breadcrumb-item">
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Courses.html">Courses</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Iot.html">Internet of Things</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <span>Quizzes & Exercises</span>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Stats Cards -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <i class="fas fa-check-circle"></i>
+                <div class="stat-value">0/12</div>
+                <div class="stat-label">Quizzes Completed</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <div class="stat-value">0%</div>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div class="stat-value">0h</div>
+                <div class="stat-label">Time Spent</div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-medal"></i>
+                <div class="stat-value">0/5</div>
+                <div class="stat-label">Exercises Completed</div>
+            </div>
+        </div>
+        
+        <!-- Quizzes & Exercises Section -->
+        <section class="quizzes-section">
+            <h2 class="section-title">Interactive Learning Activities</h2>
+            
+            <!-- Quizzes Container -->
+            <div class="quizzes-container">
+                <div class="quizzes-header">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Knowledge Checkpoints</h3>
+                </div>
+                <div class="quizzes-content">
+                    <div class="quizzes-grid">
+                        <div class="quiz-card">
+                            <div class="quiz-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <h4 class="quiz-title">IoT Fundamentals Quiz</h4>
+                            <p class="quiz-description">Test your understanding of core IoT concepts, architecture, and terminology.</p>
+                            <div class="quiz-info">
+                                <span><i class="fas fa-question"></i> 15 Questions</span>
+                                <span><i class="fas fa-clock"></i> 20 Minutes</span>
+                            </div>
+                            <a href="#" class="quiz-button">Start Quiz</a>
+                        </div>
+                        
+                        <div class="quiz-card">
+                            <div class="quiz-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h4 class="quiz-title">Security & Protocols</h4>
+                            <p class="quiz-description">Challenge your knowledge of IoT security practices and communication protocols.</p>
+                            <div class="quiz-info">
+                                <span><i class="fas fa-question"></i> 12 Questions</span>
+                                <span><i class="fas fa-clock"></i> 15 Minutes</span>
+                            </div>
+                            <a href="#" class="quiz-button">Start Quiz</a>
+                        </div>
+                        
+                        <div class="quiz-card">
+                            <div class="quiz-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <h4 class="quiz-title">Cloud Integration</h4>
+                            <p class="quiz-description">Evaluate your understanding of cloud platforms for IoT data processing.</p>
+                            <div class="quiz-info">
+                                <span><i class="fas fa-question"></i> 10 Questions</span>
+                                <span><i class="fas fa-clock"></i> 15 Minutes</span>
+                            </div>
+                            <a href="#" class="quiz-button">Start Quiz</a>
+                        </div>
+                        
+                        <div class="quiz-card">
+                            <div class="quiz-icon">
+                                <i class="fas fa-network-wired"></i>
+                            </div>
+                            <h4 class="quiz-title">Networking Essentials</h4>
+                            <p class="quiz-description">Test your knowledge of IoT networking concepts and wireless protocols.</p>
+                            <div class="quiz-info">
+                                <span><i class="fas fa-question"></i> 18 Questions</span>
+                                <span><i class="fas fa-clock"></i> 25 Minutes</span>
+                            </div>
+                            <a href="#" class="quiz-button">Start Quiz</a>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <h4 class="progress-title">Your Quiz Progress</h4>
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p class="progress-text">You've completed 0 of 12 quizzes (0%)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Exercises Container -->
+            <div class="exercises-container">
+                <div class="exercises-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Hands-on Exercises</h3>
+                </div>
+                <div class="exercises-content">
+                    <div class="exercise-item">
+                        <div class="exercise-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="exercise-info">
+                            <h4 class="exercise-title">Temperature Monitoring System</h4>
+                            <p class="exercise-description">Build a sensor network to collect and analyze temperature data from multiple locations.</p>
+                            <div class="exercise-tags">
+                                <span class="exercise-tag">Raspberry Pi</span>
+                                <span class="exercise-tag">Sensors</span>
+                                <span class="exercise-tag">MQTT</span>
+                            </div>
+                        </div>
+                        <a href="#" class="exercise-button">Start Exercise</a>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="exercise-info">
+                            <h4 class="exercise-title">Mobile Device Control App</h4>
+                            <p class="exercise-description">Create a smartphone application to control IoT devices remotely.</p>
+                            <div class="exercise-tags">
+                                <span class="exercise-tag">Android</span>
+                                <span class="exercise-tag">Bluetooth</span>
+                                <span class="exercise-tag">API</span>
+                            </div>
+                        </div>
+                        <a href="#" class="exercise-button">Start Exercise</a>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="exercise-info">
+                            <h4 class="exercise-title">Data Visualization Dashboard</h4>
+                            <p class="exercise-description">Design a real-time dashboard to visualize sensor data from IoT devices.</p>
+                            <div class="exercise-tags">
+                                <span class="exercise-tag">Node-RED</span>
+                                <span class="exercise-tag">WebSockets</span>
+                                <span class="exercise-tag">UI Design</span>
+                            </div>
+                        </div>
+                        <a href="#" class="exercise-button">Start Exercise</a>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="exercise-info">
+                            <h4 class="exercise-title">Security Implementation</h4>
+                            <p class="exercise-description">Implement encryption and authentication for IoT device communication.</p>
+                            <div class="exercise-tags">
+                                <span class="exercise-tag">TLS/SSL</span>
+                                <span class="exercise-tag">Authentication</span>
+                                <span class="exercise-tag">Security</span>
+                            </div>
+                        </div>
+                        <a href="#" class="exercise-button">Start Exercise</a>
+                    </div>
+                    
+                    <div class="exercise-item">
+                        <div class="exercise-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <div class="exercise-info">
+                            <h4 class="exercise-title">Industrial IoT Simulator</h4>
+                            <p class="exercise-description">Create a simulated industrial environment with predictive maintenance.</p>
+                            <div class="exercise-tags">
+                                <span class="exercise-tag">PLC</span>
+                                <span class="exercise-tag">Predictive Analytics</span>
+                                <span class="exercise-tag">Simulation</span>
+                            </div>
+                        </div>
+                        <a href="#" class="exercise-button">Start Exercise</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About LearnTrack</h3>
+                <p>LearnTrack bridges education and opportunity — where every lesson completed unlocks real-world value.</p>
+                <p> </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@LearnTrack.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Popular Courses</h3>
+                <p><a href="#" style="color: white;">Data Analytics Career Accelerator</a></p>
+                <p><a href="#" style="color: white;">Blockchain Fundamentals</a></p>
+                <p><a href="#" style="color: white;">Full Stack Web Development</a></p>
+                <p><a href="#" style="color: white;">Cloud Engineering & DevOps</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive course updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email address" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: var(--radius-sm); border: none; background: rgba(255,255,255,0.1); color: white;">
+                    <button class="exercise-button" style="width: 100%; margin-top: 10px;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 LearnTrack. All rights reserved.  </p>
+        </div>
+    </footer>
+</body>
+</html>

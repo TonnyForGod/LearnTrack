@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Account Not Found</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e, #4a148c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #3949ab;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.2);
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #c62828;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            display: none;
+        }
+        
+        .error-message i {
+            font-size: 1.5rem;
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .forgot-password {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        .google {
+            background: #db4437;
+        }
+        
+        .facebook {
+            background: #4267B2;
+        }
+        
+        .twitter {
+            background: #1DA1F2;
+        }
+        
+        .signup {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+        
+        .signup a {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        .account-help {
+            background: #e3f2fd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .account-help h3 {
+            color: #1565c0;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .account-help p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .help-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .help-link {
+            background: #bbdefb;
+            color: #0d47a1;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .help-link:hover {
+            background: #90caf9;
+            transform: translateY(-2px);
+        }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .help-links {
+                flex-direction: column;
+            }
+            
+            .help-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to LearnTrack</h1>
+            <p>Login to access your personalized dashboard</p>
+        </div>
+        
+        <div class="content">
+            <div class="error-message" id="errorMessage">
+                <i class="fas fa-exclamation-circle"></i>
+                <div>
+                    <strong>Account not found!</strong> The email you entered doesn't match any account. Please try again or create a new account.
+                </div>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Log in to your account
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or continue with</span>
+            </div>
+            
+            <div class="social-login">
+                <div class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
+                </div>
+            </div>
+            
+            <div class="signup">
+                <p>Don't have an account? <a href="#" id="createAccountLink">Sign up now</a></p>
+            </div>
+            
+            <div class="account-help">
+                <h3><i class="fas fa-question-circle"></i> Can't access your account?</h3>
+                <p>If you're having trouble logging in, here are some solutions:</p>
+                <div class="help-links">
+                    <a href="#" class="help-link">Reset your password</a>
+                    <a href="#" class="help-link">Check your email spelling</a>
+                    <a href="#" class="help-link">Create a new account</a>
+                    <a href="#" class="help-link">Contact support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const emailInput = document.getElementById('email');
+            const createAccountLink = document.getElementById('createAccountLink');
+            
+            // Show error message when page loads (simulating failed login)
+            setTimeout(() => {
+                errorMessage.style.display = 'flex';
+                emailInput.focus();
+                
+                // Add shake animation to form
+                loginForm.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    loginForm.style.animation = '';
+                }, 500);
+            }, 800);
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const email = emailInput.value;
+                const password = document.getElementById('password').value;
+                
+                // Always show error for demonstration
+                errorMessage.style.display = 'flex';
+                
+                // Add shake animation to form
+                loginForm.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    loginForm.style.animation = '';
+                }, 500);
+                
+                // Focus on email field
+                emailInput.focus();
+            });
+            
+            createAccountLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Redirecting to signup page...');
+                // In a real app: window.location.href = 'signup.html';
+            });
+            
+            // Simulate social login buttons
+            const socialBtns = document.querySelectorAll('.social-btn');
+            socialBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    alert('This is a demo. In a real application, this would initiate social login.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

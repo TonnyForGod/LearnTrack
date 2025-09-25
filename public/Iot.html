@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT Career Accelerator | LearnTrack</title>
+    <link rel="styleHeet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="styleHeet">
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary-dark: #1a237e;
+            --primary-base: #3949ab;
+            --primary-light: #7986cb;
+            
+            /* Accents & Rewards */
+            --accent-gold: #ffc107;
+            --accent-teal: #26c6da;
+            --accent-purple: #9c27b0;
+            
+            /* Neutrals */
+            --neutral-dark: #263238;
+            --neutral-mid: #546e7a;
+            --neutral-light: #f5f7fa;
+            --neutral-white: #ffffff;
+            
+            /* Gradients */
+            --hero-gradient: linear-gradient(135deg, var(--primary-dark) 0%, #6a11cb 100%);
+            --iot-gradient: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        .top-nav {
+            background: var(--primary-dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent-gold);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        /* Header Section */
+        .course-header {
+            background: var(--iot-gradient);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .course-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .course-tag {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-title {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .course-tagline {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .price-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .price-discounted {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--neutral-dark);
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: #ffca28;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .enrollment-note {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-base);
+            position: relative;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+        
+        /* Learning Points */
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+        
+        .learning-card {
+            background: var(--neutral-white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .learning-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-purple);
+        }
+        
+        .learning-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .learning-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .learning-card p {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .learning-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.8rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-purple);
+        }
+        
+        /* Course Outline */
+        .outline-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .module {
+            margin-bottom: 2.5rem;
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            color: var(--primary-base);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-title i {
+            margin-right: 10px;
+            color: var(--accent-gold);
+        }
+        
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .topic {
+            display: flex;
+            align-items: flex-start;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            transition: background 0.3s ease;
+        }
+        
+        .topic:hover {
+            background: rgba(156, 39, 176, 0.05);
+        }
+        
+        .topic i {
+            color: var(--accent-purple);
+            margin-right: 12px;
+            margin-top: 5px;
+            font-size: 1.2rem;
+        }
+        
+        .topic-content h4 {
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .topic-content p {
+            color: var(--neutral-mid);
+            font-size: 0.95rem;
+        }
+        
+        /* Video Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 900px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .modal-header {
+            background: var(--accent-purple);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .video-container {
+            position: relative;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Instructor Section */
+        .instructor-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
+        }
+        
+        .instructor-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--neutral-light);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .instructor-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .instructor-title {
+            color: var(--accent-purple);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instructor-bio {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(38, 198, 218, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: var(--neutral-mid);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+        
+        .author-info h4 {
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+        
+        .author-role {
+            color: var(--neutral-mid);
+            font-size: 0.9rem;
+        }
+        
+        /* Enrollment Section */
+        .enrollment-section {
+            background: var(--primary-base);
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            margin: 5rem auto;
+            max-width: 1000px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .enrollment-section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: 1;
+        }
+        
+        .enrollment-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .enrollment-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--neutral-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-teal);
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-base);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .learning-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .instructor-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-header {
+                padding: 3rem 1rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+        
+        /* Decorative Elements */
+        .circle-deco {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.1);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(38, 198, 218, 0.1);
+            bottom: -100px;
+            left: -50px;
+        }
+        
+        
+        .breadcrumbs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .breadcrumb-divider {
+            margin: 0 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            LearnTrack
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="Courses.html">Courses</a>
+            <li><a href=" community2.html">Community</a></li>
+            <a href="UserProfile.html">Profile</a>
+            
+        </div>
+    </nav>
+    
+    <!-- Header Section -->
+    <header class="course-header">
+        <div class="circle-deco circle-1"></div>
+        <div class="circle-deco circle-2"></div>
+        
+        <div class="course-header-content">
+            <div class="course-tag">Career Accelerator</div>
+            <h1 class="course-title">Internet of Things Mastery Program</h1>
+            <p class="course-tagline">Master IoT technologies to build the connected future. Learn to design, develop and deploy smart solutions that transform industries.</p>
+            
+          
+            </div>
+                 <div class="breadcrumbs">
+                <div class="breadcrumb-item">
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Courses.html">Courses</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Iot.html">Internet of Things</a>
+                </div>
+            
+                    </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="section-title">What You'll Learn</h2>
+        
+        <div class="learning-grid">
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h3>IoT Hardware & Sensors</h3>
+                <p>Master sensor technologies, microcontrollers, and circuit design to create responsive IoT devices that gather real-world data.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-cloud"></i>
+                </div>
+                <h3>Cloud Integration & Analytics</h3>
+                <p>Learn to connect devices to cloud platforms, process sensor data, and derive actionable insights using real-time analytics.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>IoT Security & Protocols</h3>
+                <p>Secure connected devices and networks using encryption, authentication protocols, and security best practices for IoT ecosystems.</p>
+            </div>
+            
+            <div class="learning-card">
+                <div class="learning-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>Network Architecture</h3>
+                <p>Design and implement scalable IoT network architectures using protocols like MQTT, CoAP, and LoRaWAN for various applications.</p>
+            </div>
+        </div>
+       
+        <!-- Instructor Section -->
+        <h2 class="section-title">Your Instructor</h2>
+        
+        <div class="instructor-section">
+        
+            <div class="instructor-info">
+                <h3>Dr. Olalekan </h3>
+                <div class="instructor-title">Chief IoT Architect at SmartTech Solutions</div>
+                <p class="instructor-bio">With over 15 years of experience in embedded systems and IoT, Dr. Peterson has led the development of smart city infrastructure projects across three continents. He holds 12 patents in IoT communication protocols and has publiHed extensively on edge computing architectures.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- Enrollment Section -->
+        <div id="enroll" class="enrollment-section">
+            <h2 class="enrollment-title">Start Your IoT Journey Today</h2>
+            <div class="enrollment-content">
+                <div class="price-container">
+             
+                    <span class="price-discounted">R899.97</span>
+                </div>
+           
+                <a href="checkout.html" class="cta-button">Enroll Now</a>
+          
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About LearnTrack</h3>
+                <p>LearnTrack bridges education and opportunity — where every lesson completed unlocks real-world value.</p>
+                <p> </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@LearnTrack.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Popular Courses</h3>
+                <p><a href="#" style="color: white;">Data Analytics Career Accelerator</a></p>
+                <p><a href="#" style="color: white;">Blockchain Fundamentals</a></p>
+                <p><a href="#" style="color: white;">Full Stack Web Development</a></p>
+                <p><a href="#" style="color: white;">Cloud Engineering & DevOps</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive course updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email address" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: var(--radius-sm); border: none; background: rgba(255,255,255,0.1); color: white;">
+                    <button class="cta-button" style="width: 100%; margin-top: 10px;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 LearnTrack. All rights reserved.  </p>
+        </div>
+    </footer>
+    
+    <script>
+        // Video Modal Functionality
+        const modal = document.getElementById('videoModal');
+        const videoFrame = document.getElementById('videoFrame');
+        const modalTitle = document.getElementById('modalTitle');
+        const closeModal = document.getElementById('closeModal');
+        const topics = document.querySelectorAll('.topic');
+        
+        // Open modal and set video
+        topics.forEach(topic => {
+            topic.addEventListener('click', () => {
+                const videoUrl = topic.getAttribute('data-video');
+                const title = topic.getAttribute('data-title');
+                
+                // Set video and title
+                videoFrame.src = videoUrl;
+                modalTitle.textContent = title;
+                
+                // Show modal
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            videoFrame.src = '';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                videoFrame.src = '';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Animation for stat cards
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+        
+        // Animation for learning cards
+        const learningCards = document.querySelectorAll('.learning-card');
+        learningCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px)';
+                card.style.boxShadow = '0 20px 25px -5px rgba(0, 0, 0, 0.2)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+                card.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+            });
+        });
+        
+        // Highlight topics with video
+        topics.forEach(topic => {
+            topic.addEventListener('mouseenter', () => {
+                topic.querySelector('i').style.transform = 'scale(1.2)';
+                topic.querySelector('i').style.color = '#ffc107';
+            });
+            
+            topic.addEventListener('mouseleave', () => {
+                topic.querySelector('i').style.transform = 'scale(1)';
+                topic.querySelector('i').style.color = '#9c27b0';
+            });
+        });
+    </script>
+</body>
+</html>

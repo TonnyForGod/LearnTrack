@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Internet of Things Course | LearnTrack</title>
+    <link rel="styleHeet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="styleHeet">
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary-dark: #1a237e;
+            --primary-base: #3949ab;
+            --primary-light: #7986cb;
+            
+            /* Accents & Rewards */
+            --accent-gold: #ffc107;
+            --accent-teal: #26c6da;
+            --accent-purple: #9c27b0;
+            
+            /* Neutrals */
+            --neutral-dark: #263238;
+            --neutral-mid: #546e7a;
+            --neutral-light: #f5f7fa;
+            --neutral-white: #ffffff;
+            
+            /* Gradients */
+            --hero-gradient: linear-gradient(135deg, var(--primary-dark) 0%, #6a11cb 100%);
+            --iot-gradient: linear-gradient(135deg, #9c27b0 0%, #673ab7 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: var(--neutral-light);
+            color: var(--neutral-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        
+        /* Navigation */
+        .top-nav {
+            background: var(--primary-dark);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        
+        .logo i {
+            color: var(--accent-gold);
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        /* Header Section */
+        .course-header {
+            background: var(--iot-gradient);
+            color: white;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .course-header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .course-tag {
+            background: rgba(255, 255, 255, 0.2);
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .course-title {
+            font-size: 3.2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .course-tagline {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-md);
+            padding: 1.8rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--accent-gold);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+        
+        .price-container {
+            margin-bottom: 1.5rem;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            opacity: 0.7;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .price-discounted {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-gold);
+            color: var(--neutral-dark);
+            font-weight: 600;
+            padding: 1.2rem 3rem;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-sm);
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: #ffca28;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .enrollment-note {
+            margin-top: 1.5rem;
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-base);
+            position: relative;
+            padding-bottom: 0.8rem;
+            text-align: center;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent-teal);
+            border-radius: 2px;
+        }
+        
+        /* Learning Points */
+        .learning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+        }
+        
+        .learning-card {
+            background: var(--neutral-white);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .learning-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--accent-purple);
+        }
+        
+        .learning-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .learning-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-dark);
+        }
+        
+        .learning-card p {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .learning-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.8rem;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-purple);
+        }
+
+
+
+
+
+        
+       /* Resource Containers */
+.resources-section {
+    margin: 6rem 0;
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(300px, 35%, 400px), 1fr));
+    gap: 3rem; /* slightly more spacing for bigger cards */
+}
+
+.resource-container {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    border-top: 0.4rem solid var(--accent-purple);
+}
+
+.resource-container:hover {
+    transform: translateY(-0.6rem);
+    box-shadow: var(--shadow-lg);
+}
+
+.resource-header {
+    background: linear-gradient(135deg, #9c27b0, #7b1fa2);
+    color: white;
+    padding: 2rem; /* bigger padding */
+    text-align: center;
+}
+
+.resource-header i {
+    font-size: clamp(2.5rem, 4vw, 3rem); /* bigger icon */
+    margin-bottom: 1.2rem;
+}
+
+.resource-header h3 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+}
+
+/* Flexible content container with bigger min height */
+.resource-content {
+    padding: 2.5rem;
+    min-height: clamp(250px, 45vh, 400px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+        
+.resource-list {
+    list-style-type: none;
+    width: 100%;
+}
+
+/* Bigger item text and spacing */
+.resource-item {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    transition: all 0.3s ease;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.resource-item:last-child {
+    border-bottom: none;
+}
+
+.resource-item:hover {
+    background: #f9f5ff;
+}
+
+.resource-icon {
+    width: clamp(45px, 7vw, 55px);
+    height: clamp(45px, 7vw, 55px);
+    border-radius: 50%;
+    background: #f3e5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-purple);
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+}
+
+.resource-info {
+    text-align: center;
+}
+
+.resource-info h4 {
+    color: var(--primary-dark);
+    margin-bottom: 8px;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+}
+
+.center-button {
+    text-align: center; /* Center horizontally */
+    margin: 2rem 0;      /* Space above and below */
+}
+
+.quiz-button {
+    display: inline-block;
+    background-color: #9c27b0; /* Purple button */
+    color: white;
+    padding: 0.8rem 1.8rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.quiz-button:hover {
+    background-color: #7b1fa2; /* Darker purple */
+    transform: translateY(-2px);
+}
+.resource-info p {
+    color: var(--neutral-mid);
+    font-size: clamp(1rem, 1.8vw, 1.1rem);
+}
+
+.resource-link {
+    display: inline-block;
+    background: var(--accent-purple);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    margin-top: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+}
+
+.resource-link:hover {
+    background: #7b1fa2;
+    transform: translateY(-2px);
+}
+
+
+        
+        /* Course Outline */
+        .outline-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            padding: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .module {
+            margin-bottom: 2.5rem;
+        }
+        
+        .module-title {
+            font-size: 1.5rem;
+            color: var(--primary-base);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .module-title i {
+            margin-right: 10px;
+            color: var(--accent-gold);
+        }
+        
+        .topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.2rem;
+        }
+        
+        .topic {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .topic i {
+            color: var(--accent-purple);
+            margin-right: 12px;
+            margin-top: 5px;
+        }
+        
+        /* Instructor Section */
+        .instructor-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 4rem;
+        }
+        
+        .instructor-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--neutral-light);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .instructor-info h3 {
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .instructor-title {
+            color: var(--accent-purple);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .instructor-bio {
+            color: var(--neutral-mid);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--neutral-dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-teal);
+        }
+        
+        .footer-section p {
+            margin-bottom: 1rem;
+            opacity: 0.8;
+            line-height: 1.7;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            background: var(--primary-base);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .learning-grid,
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .instructor-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .course-header {
+                padding: 3rem 1rem;
+            }
+        }
+        
+        /* Decorative Elements */
+        .circle-deco {
+            position: absolute;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 215, 0, 0.1);
+            top: -150px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 200px;
+            height: 200px;
+            background: rgba(38, 198, 218, 0.1);
+            bottom: -100px;
+            left: -50px;
+        }
+        
+        .breadcrumbs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .breadcrumb-item a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .breadcrumb-divider {
+            margin: 0 0.5rem;
+        }
+
+    </style>
+
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <a href="#" class="logo">
+            <i class="fas fa-graduation-cap"></i>
+            LearnTrack
+        </a>
+        <div class="nav-links">
+           <a href="index.html">Home</a>
+            <a href="Courses.html">Courses</a>
+            <li><a href=" community2.html">Community</a></li>
+            <a href="UserProfile.html">Profile</a>
+            
+        </div>
+    </nav>
+    
+    <!-- Header Section -->
+    <header class="course-header">
+        <div class="circle-deco circle-1"></div>
+        <div class="circle-deco circle-2"></div>
+        
+        <div class="course-header-content">
+            <div class="course-tag">Career Accelerator</div>
+            <h1 class="course-title">Internet of Things Mastery Program</h1>
+            <p class="course-tagline">Master IoT technologies to build the connected future. Learn to design, develop and deploy smart solutions that transform industries.</p>
+             
+                
+            <div class="breadcrumbs">
+                <div class="breadcrumb-item">
+                    <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Courses.html">Courses</a>
+                </div>
+                <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="Iot.html">Internet of Things</a>
+                </div>
+                   <div class="breadcrumb-divider">/</div>
+                <div class="breadcrumb-item">
+                    <a href="IoTCurr.html">Curriculum</a>
+                </div>  
+            </div>
+
+
+                <!-- PDFs Container -->
+                <div class="resource-container">
+                    <div class="resource-header">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>PDF Resources</h3>
+                    </div>
+                    <div class="resource-content">
+                        <ul class="resource-list">
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>IoT Security Best Practices</h4>
+                                    <p>Complete security guidelines</p>
+                                    <a href="1.pdf" class="resource-link">Download</a>
+                                </div>
+                            </li>
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>IoT Project Blueprint</h4>
+                                    <p>Template for IoT projects</p>
+                                    <a href="2.pdf" class="resource-link">Download</a>
+                                </div>
+                            </li>
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-cloud"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>Cloud Integration Guide</h4>
+                                    <p>AWS, Azure and Google Cloud</p>
+                                    <a href="#" class="resource-link">Download</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Videos Container -->
+                <div class="resource-container">
+                    <div class="resource-header">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Lectures</h3>
+                    </div>
+                    <div class="resource-content">
+                        <ul class="resource-list">
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>Introduction to IoT</h4>
+                                    <p>Core concepts and architecture</p>
+                                    <a href="iot.mp4" class="resource-link">Watch Now</a>
+                                </div>
+                            </li>
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>Building Your First IoT Device</h4>
+                                    <p>Step-by-step tutorial</p>
+                                    <a href="iot3.mp4" class="resource-link">Watch Now</a>
+                                </div>
+                            </li>
+                            <li class="resource-item">
+                                <div class="resource-icon">
+                                    <i class="fas fa-network-wired"></i>
+                                </div>
+                                <div class="resource-info">
+                                    <h4>Network Architecture Design</h4>
+                                    <p>Creating scalable IoT networks</p>
+                                    <a href="iot2.mp4" class="resource-link">Watch Now</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        
+<div class="center-button">
+    <a href="Quizzes & Exercises.html" class="quiz-button">
+        Quizzes & Exercises Section
+    </a>
+</div>
+        
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About LearnTrack</h3>
+                <p>LearnTrack bridges education and opportunity — where every lesson completed unlocks real-world value.</p>
+                <p> </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-envelope"></i> support@LearnTrack.com</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-map-marker-alt"></i> Cape Town, South Africa</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Popular Courses</h3>
+                <p><a href="#" style="color: white;">Data Analytics Career Accelerator</a></p>
+                <p><a href="#" style="color: white;">Blockchain Fundamentals</a></p>
+                <p><a href="#" style="color: white;">Full Stack Web Development</a></p>
+                <p><a href="#" style="color: white;">Cloud Engineering & DevOps</a></p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to receive course updates and special offers.</p>
+                <form>
+                    <input type="email" placeholder="Your email address" style="width: 100%; padding: 12px; margin: 15px 0; border-radius: var(--radius-sm); border: none; background: rgba(255,255,255,0.1); color: white;">
+                    <button class="cta-button" style="width: 100%; margin-top: 10px;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 LearnTrack. All rights reserved.  </p>
+        </div>
+    </footer>
+</body>
+</html>

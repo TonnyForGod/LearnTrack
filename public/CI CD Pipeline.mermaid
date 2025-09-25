@@ -1,0 +1,8 @@
+graph LR
+    A[GitHub Repository] --> B[GitHub Actions]
+    B --> C[Run Tests]
+    C --> D[Build Docker Image]
+    D --> E[Push to ECR]
+    E --> F[Deploy to ECS]
+    F --> G[Run Migrations]
+    G --> H[Health Checks]

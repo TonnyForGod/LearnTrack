@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - LearnTrack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(to right, #00c6ff, #0072ff);
+            --primary-blue: #00c6ff;
+            --dark-bg: rgba(15, 15, 30, 0.9);
+            --card-bg: rgba(25, 25, 45, 0.8);
+            --light-text: #e0e0e0;
+            --like-color: #ff6b6b;
+            --comment-color: #4dabf7;
+            --share-color: #51cf66;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.95)), url('https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 198, 255, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary-blue);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: #fff;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .btn-login:hover {
+            background: rgba(0, 198, 255, 0.1);
+        }
+
+        .btn-signup {
+            background: var(--primary-gradient);
+            color: white;
+            border: 2px solid transparent;
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* Community Hero */
+        .community-hero {
+            padding: 100px 0 60px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .community-hero h1 {
+            font-size: 64px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+        }
+
+        .community-hero p {
+            font-size: 22px;
+            color: var(--light-text);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 18px;
+            color: var(--light-text);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 198, 255, 0.1);
+            backdrop-filter: blur(5px);
+            z-index: 1;
+        }
+
+        .floating-1 {
+            width: 120px;
+            height: 120px;
+            top: 10%;
+            left: 10%;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        .floating-2 {
+            width: 80px;
+            height: 80px;
+            bottom: 20%;
+            right: 15%;
+            animation: float 6s infinite ease-in-out 1s;
+        }
+
+        .floating-3 {
+            width: 60px;
+            height: 60px;
+            top: 30%;
+            right: 20%;
+            animation: float 7s infinite ease-in-out 2s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        /* Main Content */
+        .community-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+            padding: 30px 0 60px;
+        }
+
+        /* Feed Section */
+        .feed-section {
+            background: var(--dark-bg);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+        }
+
+        .create-post {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(0, 198, 255, 0.15);
+        }
+
+        .post-input {
+            width: 100%;
+            min-height: 100px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: white;
+            padding: 15px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            resize: vertical;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .action-icons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .icon-btn:hover {
+            background: rgba(0, 198, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .post-btn {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .post-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        }
+
+        /* New styles for media uploads */
+        .media-preview {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 12px;
+            border: 1px dashed rgba(0, 198, 255, 0.3);
+            display: none;
+        }
+
+        .media-preview.visible {
+            display: block;
+        }
+
+        .preview-title {
+            font-size: 14px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clear-btn {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            font-size: 13px;
+            cursor: pointer;
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .clear-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .preview-item {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .preview-item img, .preview-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .link-preview {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6a8df0 0%, #8e6af0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        .link-input-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            display: none;
+            border: 1px solid rgba(0, 198, 255, 0.2);
+        }
+
+        .link-input-container.visible {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .link-input-title {
+            font-size: 14px;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .link-input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .link-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            font-size: 14px;
+            color: white;
+        }
+
+        .link-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .add-link-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .add-link-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Posts */
+        .post {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 198, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 114, 255, 0.2);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-blue);
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .post-time {
+            color: #b0b0b0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .post-content {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .post-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(0, 198, 255, 0.1);
+            color: var(--primary-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats-left {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #b0b0b0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            color: var(--primary-blue);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* New styles for like, comment, share */
+        .like-btn {
+            transition: all 0.2s;
+        }
+        
+        .like-btn.active {
+            color: var(--like-color);
+        }
+        
+        .like-btn.active i {
+            color: var(--like-color);
+        }
+        
+        .comment-btn {
+            transition: all 0.2s;
+        }
+        
+        .comment-btn.active {
+            color: var(--comment-color);
+        }
+        
+        .comment-btn.active i {
+            color: var(--comment-color);
+        }
+        
+        .share-btn {
+            transition: all 0.2s;
+        }
+        
+        .share-btn:hover {
+            color: var(--share-color);
+        }
+        
+        .share-btn:hover i {
+            color: var(--share-color);
+        }
+        
+        /* Comment section styles */
+        .comments-section {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: none;
+        }
+        
+        .comments-section.active {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+        
+        .comments-list {
+            margin-bottom: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        
+        .comment {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .comment-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .comment-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .comment-user {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .comment-time {
+            color: #aaa;
+            font-size: 12px;
+        }
+        
+        .comment-text {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .add-comment {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .comment-input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .comment-input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .comment-submit {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .comment-submit:hover {
+            opacity: 0.9;
+        }
+        
+        /* Share modal */
+        .share-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+        
+        .share-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .share-content {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 198, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+        
+        .share-modal.active .share-content {
+            transform: translateY(0);
+        }
+        
+        .share-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .share-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+        
+        .close-share {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .close-share:hover {
+            color: #fff;
+        }
+        
+        .share-options {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        
+        .share-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        
+        .share-option:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .share-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .facebook {
+            background: #3b5998;
+        }
+        
+        .twitter {
+            background: #1da1f2;
+        }
+        
+        .linkedin {
+            background: #0077b5;
+        }
+        
+        .link-share {
+            background: var(--primary-gradient);
+        }
+        
+        .share-option span {
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .copy-link {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .copy-link input {
+            flex: 1;
+            padding: 10px 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .copy-link input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .copy-btn {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .copy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 60px 0 30px;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .footer-info h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .footer-info p {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            color: #aaa;
+        }
+
+        .contact-item i {
+            color: var(--primary-blue);
+            font-size: 18px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 30px;
+            text-align: center;
+            color: #777;
+            font-size: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .community-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .community-hero h1 {
+                font-size: 48px;
+            }
+            
+            .community-hero p {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                grid-template-columns: 1fr;
+            }
+            
+            .post-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .hero-stats {
+                gap: 30px;
+            }
+            
+            .stat-value {
+                font-size: 36px;
+            }
+            
+            .share-options {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .community-hero h1 {
+                font-size: 36px;
+            }
+            
+            .post-actions {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .action-icons {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .add-comment {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Elements -->
+    <div class="floating-element floating-1"></div>
+    <div class="floating-element floating-2"></div>
+    <div class="floating-element floating-3"></div>
+
+    <!-- Header with Navigation -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span class="logo-text">LearnTrack</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="Courses.html">Courses</a></li>
+                     <li><a href=" community2.html" class="active">Community</a></li>
+                    <li><a href="AboutUs.html">About Us</a></li>
+                  
+                </ul>
+            
+            </nav>
+        </div>
+    </header>
+
+    <!-- Community Hero Section -->
+    <section class="community-hero">
+        <div class="container">
+            <h1>Connect, Collaborate, Grow</h1>
+            <p>Join a thriving community of learners, educators, and creators. Share knowledge, form study groups, ask questions, and build connections that last beyond the classroom.</p>
+            
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="stat-value">2,500+</div>
+                    <div class="stat-label">Active Members</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-value">+350</div>
+                    <div class="stat-label">Study Groups</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="stat-value">2,000+</div>
+                    <div class="stat-label">Discussions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Content -->
+    <div class="container">
+        <div class="community-content">
+            <!-- Main Feed -->
+            <div class="feed-section">
+                <h2 class="section-title"><i class="fas fa-comments"></i> Community Feed</h2>
+                
+                <!-- Create Post with Media Uploads -->
+                <div class="create-post">
+                    <textarea class="post-input" placeholder="Share your thoughts, ask a question, or start a discussion..."></textarea>
+                    
+                    <!-- Media Preview -->
+                    <div class="media-preview" id="mediaPreview">
+                        <div class="preview-title">
+                            <span>Media Preview</span>
+                            <button class="clear-btn" id="clearMedia">Clear All</button>
+                        </div>
+                        <div class="preview-container" id="previewContainer">
+                            <!-- Preview items will be added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Link Input -->
+                    <div class="link-input-container" id="linkInputContainer">
+                        <div class="link-input-title">Add a link to share</div>
+                        <div class="link-input-row">
+                            <input type="text" class="link-input" id="linkInput" placeholder="https://example.com">
+                            <button class="add-link-btn" id="addLinkBtn">Add</button>
+                        </div>
+                    </div>
+                    
+                    <div class="post-actions">
+                        <div class="action-icons">
+                            <div class="icon-btn" id="imageBtn" title="Upload images">
+                                <i class="fas fa-image"></i>
+                                <input type="file" id="imageInput" accept="image/*" multiple style="display: none;">
+                            </div>
+                            <div class="icon-btn" id="videoBtn" title="Upload videos">
+                                <i class="fas fa-video"></i>
+                                <input type="file" id="videoInput" accept="video/*" multiple style="display: none;">
+                            </div>
+                            <div class="icon-btn" id="linkBtn" title="Add a link">
+                                <i class="fas fa-link"></i>
+                            </div>
+                        </div>
+                        <button class="post-btn" id="postBtn">Post to Community</button>
+                    </div>
+                </div>
+                
+                <!-- Posts -->
+                <div class="post" data-likes="42" data-liked="false" data-comments="18">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Mr Mauwa</div>
+                            <div class="post-time"><i class="far fa-clock"></i> 2 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Looking for study partners for the Data Structures exam next week. I've created a comprehensive study guide covering all key topics. Let's form a study group and ace this together! 🚀</p>
+                    </div>
+                    <div class="post-tags">
+                        <div class="tag">#DataStructures</div>
+                        <div class="tag">#StudyGroup</div>
+                        <div class="tag">#ExamPrep</div>
+                    </div>
+                    <div class="post-stats">
+                        <div class="stats-left">
+                            <div class="stat-item like-btn">
+                                <i class="far fa-thumbs-up"></i> <span class="like-count">42</span> Likes
+                            </div>
+                            <div class="stat-item comment-btn">
+                                <i class="far fa-comment"></i> <span class="comment-count">18</span> Comments
+                            </div>
+                            <div class="stat-item share-btn">
+                                <i class="fas fa-share"></i> Share
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">Sarah Johnson</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 1 hour ago</div>
+                                </div>
+                                <div class="comment-text">This is a great initiative! I'd love to join the study group. When are you planning to meet?</div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">Mike Chen</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 45 minutes ago</div>
+                                </div>
+                                <div class="comment-text">I'm in! I have some practice problems we can work through together.</div>
+                            </div>
+                        </div>
+                        <div class="add-comment">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="comment-submit">Post</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="post" data-likes="142" data-liked="false" data-comments="36">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Ms Precious Leutle</div>
+                            <div class="post-time"><i class="far fa-clock"></i> Yesterday</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>🎉 Our "Women in Tech" study group just reached 200 members! To celebrate, we're hosting a free webinar on "Career Paths in Technology" this Friday at 6 PM. Special guests from leading tech companies will be joining us. Everyone is welcome!</p>
+                    </div>
+                    <div class="post-tags">
+                        <div class="tag">#WomenInTech</div>
+                        <div class="tag">#Webinar</div>
+                        <div class="tag">#CareerDevelopment</div>
+                    </div>
+                    <div class="post-stats">
+                        <div class="stats-left">
+                            <div class="stat-item like-btn">
+                                <i class="far fa-thumbs-up"></i> <span class="like-count">142</span> Likes
+                            </div>
+                            <div class="stat-item comment-btn">
+                                <i class="far fa-comment"></i> <span class="comment-count">36</span> Comments
+                            </div>
+                            <div class="stat-item share-btn">
+                                <i class="fas fa-share"></i> Share
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">Emily Rodriguez</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 20 hours ago</div>
+                                </div>
+                                <div class="comment-text">This is amazing! Can't wait to join the webinar. Will it be recorded for those who can't attend live?</div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/men/12.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">David Kim</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 18 hours ago</div>
+                                </div>
+                                <div class="comment-text">As a male ally, I really appreciate what you're doing. Will definitely share with my network!</div>
+                            </div>
+                        </div>
+                        <div class="add-comment">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="comment-submit">Post</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- New post with media example -->
+                <div class="post" data-likes="87" data-liked="false" data-comments="24">
+                    <div class="post-header">
+                        <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="User" class="user-avatar">
+                        <div class="user-info">
+                            <div class="user-name">Rikhotso Julian</div>
+                            <div class="post-time"><i class="far fa-clock"></i> 3 hours ago</div>
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        <p>Just finished creating this educational infographic about machine learning algorithms. Hope you find it useful! Let me know what you think.</p>
+                    </div>
+                    <div class="post-content">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Machine Learning Infographic" style="width:100%; border-radius:12px; margin-top:15px;">
+                    </div>
+                    <div class="post-tags">
+                        <div class="tag">#MachineLearning</div>
+                        <div class="tag">#Infographic</div>
+                        <div class="tag">#DataScience</div>
+                    </div>
+                    <div class="post-stats">
+                        <div class="stats-left">
+                            <div class="stat-item like-btn">
+                                <i class="far fa-thumbs-up"></i> <span class="like-count">87</span> Likes
+                            </div>
+                            <div class="stat-item comment-btn">
+                                <i class="far fa-comment"></i> <span class="comment-count">24</span> Comments
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Comments Section -->
+                    <div class="comments-section">
+                        <div class="comments-list">
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/men/23.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">Thomas Anderson</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 2 hours ago</div>
+                                </div>
+                                <div class="comment-text">This is super helpful! Would you mind if I share this with my students?</div>
+                            </div>
+                            <div class="comment">
+                                <div class="comment-header">
+                                    <img src="https://randomuser.me/api/portraits/women/31.jpg" alt="User" class="comment-avatar">
+                                    <div class="comment-user">Lisa Park</div>
+                                    <div class="comment-time"><i class="far fa-clock"></i> 1 hour ago</div>
+                                </div>
+                                <div class="comment-text">Great visualization! Could you explain the difference between supervised and unsupervised learning in more detail?</div>
+                            </div>
+                        </div>
+                        <div class="add-comment">
+                            <input type="text" class="comment-input" placeholder="Write a comment...">
+                            <button class="comment-submit">Post</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                
+    <!-- Share Modal -->
+    <div class="share-modal" id="shareModal">
+        <div class="share-content">
+            <div class="share-header">
+                <h3 class="share-title">Share This Post</h3>
+                <button class="close-share" id="closeShare">&times;</button>
+            </div>
+            <p>Select how you'd like to share this post with others:</p>
+            <div class="share-options">
+                <div class="share-option">
+                    <div class="share-icon facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <span>Facebook</span>
+                </div>
+                <div class="share-option">
+                    <div class="share-icon twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
+                    <span>Twitter</span>
+                </div>
+                <div class="share-option">
+                    <div class="share-icon linkedin">
+                        <i class="fab fa-linkedin-in"></i>
+                    </div>
+                    <span>LinkedIn</span>
+                </div>
+                <div class="share-option">
+                    <div class="share-icon link-share">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <span>Copy Link</span>
+                </div>
+            </div>
+            <div class="copy-link">
+                <input type="text" value="https://learntrack.com/posts/1234" readonly>
+                <button class="copy-btn">Copy</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>University of Mpumalanga</h3>
+                    <p>LearnTrack connects students and lecturers in a thriving educational marketplace. Learn, earn, and grow—all in one place!</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>LearnTrack@gmail.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>011 256 7001</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Support Center</a>
+                </div>
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <a href="blog.html">Blog</a>
+                    <a href="Events.html">Events</a>
+                    <a href="Tutorials.html">Tutorials</a>
+                    <a href=" community2.html">Community</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 LearnTrack. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elements
+            const imageBtn = document.getElementById('imageBtn');
+            const videoBtn = document.getElementById('videoBtn');
+            const linkBtn = document.getElementById('linkBtn');
+            const imageInput = document.getElementById('imageInput');
+            const videoInput = document.getElementById('videoInput');
+            const linkInputContainer = document.getElementById('linkInputContainer');
+            const linkInput = document.getElementById('linkInput');
+            const addLinkBtn = document.getElementById('addLinkBtn');
+            const previewContainer = document.getElementById('previewContainer');
+            const clearMediaBtn = document.getElementById('clearMedia');
+            const postBtn = document.getElementById('postBtn');
+            const mediaPreview = document.getElementById('mediaPreview');
+            
+            // Media storage
+            let uploadedImages = [];
+            let uploadedVideos = [];
+            let addedLinks = [];
+            
+            // Event Listeners
+            imageBtn.addEventListener('click', () => imageInput.click());
+            videoBtn.addEventListener('click', () => videoInput.click());
+            linkBtn.addEventListener('click', toggleLinkInput);
+            imageInput.addEventListener('change', handleImageUpload);
+            videoInput.addEventListener('change', handleVideoUpload);
+            addLinkBtn.addEventListener('click', addLink);
+            clearMediaBtn.addEventListener('click', clearAllMedia);
+            postBtn.addEventListener('click', postToCommunity);
+            
+            // Functions
+            function toggleLinkInput() {
+                linkInputContainer.classList.toggle('visible');
+                if (linkInputContainer.classList.contains('visible')) {
+                    linkInput.focus();
+                }
+            }
+            
+            function handleImageUpload(e) {
+                const files = e.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (!file.type.match('image.*')) continue;
+                    
+                    uploadedImages.push(file);
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        createPreviewItem(e.target.result, 'image', file.name);
+                        showMediaPreview();
+                    };
+                    reader.readAsDataURL(file);
+                }
+                // Reset input to allow selecting same file again
+                imageInput.value = '';
+            }
+            
+            function handleVideoUpload(e) {
+                const files = e.target.files;
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    if (!file.type.match('video.*')) continue;
+                    
+                    uploadedVideos.push(file);
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        createPreviewItem(e.target.result, 'video', file.name);
+                        showMediaPreview();
+                    };
+                    reader.readAsDataURL(file);
+                }
+                videoInput.value = '';
+            }
+            
+            function addLink() {
+                const link = linkInput.value.trim();
+                if (!link) return;
+                
+                // Simple URL validation
+                if (!isValidUrl(link)) {
+                    alert('Please enter a valid URL (e.g., https://example.com)');
+                    return;
+                }
+                
+                addedLinks.push(link);
+                createPreviewItem(link, 'link');
+                showMediaPreview();
+                
+                // Reset input
+                linkInput.value = '';
+                linkInputContainer.classList.remove('visible');
+            }
+            
+            function isValidUrl(url) {
+                try {
+                    new URL(url);
+                    return true;
+                } catch (e) {
+                    return false;
+                }
+            }
+            
+            function createPreviewItem(source, type, filename = '') {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'preview-item';
+                
+                if (type === 'image') {
+                    previewItem.innerHTML = `
+                        <img src="${source}" alt="${filename}">
+                        <div class="remove-btn"><i class="fas fa-times"></i></div>
+                    `;
+                } else if (type === 'video') {
+                    previewItem.innerHTML = `
+                        <video>
+                            <source src="${source}" type="video/mp4">
+                        </video>
+                        <div class="remove-btn"><i class="fas fa-times"></i></div>
+                    `;
+                } else if (type === 'link') {
+                    previewItem.innerHTML = `
+                        <div class="link-preview">
+                            <i class="fas fa-link"></i>
+                            <div class="remove-btn"><i class="fas fa-times"></i></div>
+                        </div>
+                    `;
+                }
+                
+                // Add remove functionality
+                const removeBtn = previewItem.querySelector('.remove-btn');
+                removeBtn.addEventListener('click', function() {
+                    if (type === 'image') {
+                        uploadedImages = uploadedImages.filter(img => img.name !== filename);
+                    } else if (type === 'video') {
+                        uploadedVideos = uploadedVideos.filter(vid => vid.name !== filename);
+                    } else if (type === 'link') {
+                        addedLinks = addedLinks.filter(link => link !== source);
+                    }
+                    
+                    previewItem.remove();
+                    
+                    // Hide preview if no media left
+                    if (uploadedImages.length === 0 && uploadedVideos.length === 0 && addedLinks.length === 0) {
+                        mediaPreview.classList.remove('visible');
+                    }
+                });
+                
+                previewContainer.appendChild(previewItem);
+            }
+            
+            function showMediaPreview() {
+                mediaPreview.classList.add('visible');
+            }
+            
+            function clearAllMedia() {
+                uploadedImages = [];
+                uploadedVideos = [];
+                addedLinks = [];
+                previewContainer.innerHTML = '';
+                mediaPreview.classList.remove('visible');
+                linkInputContainer.classList.remove('visible');
+            }
+            
+            function postToCommunity() {
+                const postText = document.querySelector('.post-input').value.trim();
+                
+                if (!postText && uploadedImages.length === 0 && 
+                    uploadedVideos.length === 0 && addedLinks.length === 0) {
+                    alert('Please add some content to your post!');
+                    return;
+                }
+                
+                // In a real app, this would submit to a server
+                alert('Your post has been shared with the community!');
+                
+                // Reset form
+                document.querySelector('.post-input').value = '';
+                clearAllMedia();
+            }
+            
+            // Like, Comment, and Share Functionality
+            document.querySelectorAll('.post').forEach(post => {
+                const likeBtn = post.querySelector('.like-btn');
+                const commentBtn = post.querySelector('.comment-btn');
+                const shareBtn = post.querySelector('.share-btn');
+                const commentSubmit = post.querySelector('.comment-submit');
+                const commentInput = post.querySelector('.comment-input');
+                const commentsSection = post.querySelector('.comments-section');
+                const likeCountEl = post.querySelector('.like-count');
+                const commentCountEl = post.querySelector('.comment-count');
+                const commentsList = post.querySelector('.comments-list');
+                
+                // Like functionality
+                likeBtn.addEventListener('click', function() {
+                    const isLiked = post.dataset.liked === 'true';
+                    let likeCount = parseInt(likeCountEl.textContent);
+                    
+                    if (isLiked) {
+                        // Unlike
+                        likeCount--;
+                        post.dataset.liked = 'false';
+                        likeBtn.classList.remove('active');
+                        likeBtn.querySelector('i').className = 'far fa-thumbs-up';
+                    } else {
+                        // Like
+                        likeCount++;
+                        post.dataset.liked = 'true';
+                        likeBtn.classList.add('active');
+                        likeBtn.querySelector('i').className = 'fas fa-thumbs-up';
+                        
+                        // Animation effect
+                        likeBtn.style.transform = 'scale(1.2)';
+                        setTimeout(() => {
+                            likeBtn.style.transform = 'scale(1)';
+                        }, 300);
+                    }
+                    
+                    // Update the count
+                    likeCountEl.textContent = likeCount;
+                });
+                
+                // Comment functionality
+                commentBtn.addEventListener('click', function() {
+                    // Toggle the comments section
+                    commentsSection.classList.toggle('active');
+                    
+                    // Toggle active state
+                    commentBtn.classList.toggle('active');
+                    
+                    // Change icon based on state
+                    if (commentsSection.classList.contains('active')) {
+                        commentBtn.querySelector('i').className = 'fas fa-comment';
+                    } else {
+                        commentBtn.querySelector('i').className = 'far fa-comment';
+                    }
+                });
+                
+                // Share functionality
+                shareBtn.addEventListener('click', function() {
+                    const shareModal = document.getElementById('shareModal');
+                    shareModal.classList.add('active');
+                });
+                
+                // Comment submission
+                commentSubmit.addEventListener('click', function() {
+                    const commentText = commentInput.value.trim();
+                    if (commentText) {
+                        // Create a new comment element
+                        const commentEl = document.createElement('div');
+                        commentEl.className = 'comment';
+                        commentEl.innerHTML = `
+                            <div class="comment-header">
+                                <img src="https://randomuser.me/api/portraits/lego/1.jpg" alt="User" class="comment-avatar">
+                                <div class="comment-user">You</div>
+                                <div class="comment-time"><i class="far fa-clock"></i> just now</div>
+                            </div>
+                            <div class="comment-text">${commentText}</div>
+                        `;
+                        
+                        // Add to the comments list
+                        commentsList.appendChild(commentEl);
+                        
+                        // Update the comment count
+                        let currentCount = parseInt(commentCountEl.textContent);
+                        currentCount++;
+                        commentCountEl.textContent = currentCount;
+                        
+                        // Clear the input
+                        commentInput.value = '';
+                        
+                        // Scroll to the new comment
+                        commentEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+                });
+                
+                // Allow Enter key to submit comment
+                commentInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        commentSubmit.click();
+                    }
+                });
+            });
+            
+            // Share modal functionality
+            const shareModal = document.getElementById('shareModal');
+            const closeShare = document.getElementById('closeShare');
+            const copyBtn = document.querySelector('.copy-btn');
+            
+            closeShare.addEventListener('click', function() {
+                shareModal.classList.remove('active');
+            });
+            
+            shareModal.addEventListener('click', function(e) {
+                if (e.target === shareModal) {
+                    shareModal.classList.remove('active');
+                }
+            });
+            
+            // Copy link functionality
+            copyBtn.addEventListener('click', function() {
+                const linkInput = document.querySelector('.copy-link input');
+                linkInput.select();
+                document.execCommand('copy');
+                
+                // Show feedback
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                copyBtn.style.background = '#51cf66';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = '';
+                }, 2000);
+            });
+            
+            // Social share buttons
+            document.querySelectorAll('.share-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const platform = this.querySelector('span').textContent.toLowerCase();
+                    let message = 'Check out this post on LearnTrack!';
+                    
+                    switch(platform) {
+                        case 'facebook':
+                            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+                            break;
+                        case 'twitter':
+                            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+                            break;
+                        case 'linkedin':
+                            window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent('LearnTrack Post')}&summary=${encodeURIComponent(message)}`, '_blank');
+                            break;
+                        case 'copy link':
+                            // Already handled by the copy button
+                            break;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

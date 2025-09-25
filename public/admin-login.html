@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnTrack - Admin Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a237e, #4a148c);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 500px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input {
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: #3949ab;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.2);
+        }
+        
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 10px 0;
+        }
+        
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .remember input {
+            width: 18px;
+            height: 18px;
+        }
+        
+        .forgot-password {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+        
+        .login-btn {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777;
+        }
+        
+        .admin-login {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .admin-login-btn {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .admin-login-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
+        
+        .signup {
+            text-align: center;
+            margin-top: 20px;
+            color: #555;
+        }
+        
+        .signup a {
+            color: #3949ab;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .signup a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Admin Login Popup Styles */
+        .admin-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .admin-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .admin-popup-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .admin-popup.active .admin-popup-content {
+            transform: scale(1);
+        }
+        
+        .admin-popup-header {
+            margin-bottom: 25px;
+        }
+        
+        .admin-popup-header i {
+            font-size: 3.5rem;
+            color: #d32f2f;
+            margin-bottom: 15px;
+        }
+        
+        .admin-popup-header h2 {
+            font-size: 2rem;
+            color: #d32f2f;
+            margin-bottom: 10px;
+        }
+        
+        .admin-popup-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+        
+        .admin-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .admin-form .form-group {
+            text-align: left;
+        }
+        
+        .admin-form input {
+            width: 100%;
+        }
+        
+        .security-note {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: left;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .security-note i {
+            color: #d32f2f;
+            margin-right: 8px;
+        }
+        
+        .admin-login-submit {
+            background: linear-gradient(135deg, #d32f2f, #b71c1c);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+        
+        .admin-login-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(211, 47, 47, 0.4);
+        }
+        
+        .close-popup {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-popup:hover {
+            color: #d32f2f;
+            transform: rotate(90deg);
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+            
+            .admin-popup-content {
+                padding: 25px;
+            }
+            
+            .admin-popup-header h2 {
+                font-size: 1.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome to LearnTrack</h1>
+            <p>Login to access your personalized dashboard</p>
+        </div>
+        
+        <div class="content">
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="options">
+                    <div class="remember">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="button" class="login-btn" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Log in to your account
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <div class="admin-login">
+                <button type="button" class="admin-login-btn" id="adminLoginBtn">
+                    <i class="fas fa-user-shield"></i>
+                    Admin Login
+                </button>
+            </div>
+            
+            <div class="signup">
+                <p>Don't have an account? <a href="signup.html">Sign up now</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Login Popup -->
+    <div class="admin-popup" id="adminPopup">
+        <div class="admin-popup-content">
+            <button class="close-popup" id="closePopup">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="admin-popup-header">
+                <i class="fas fa-user-shield"></i>
+                <h2>Admin Access Required</h2>
+                <p>Enter your administrator credentials to continue</p>
+            </div>
+            
+            <form class="admin-form" id="adminForm">
+                <div class="form-group">
+                    <label for="admin-email">Admin Email</label>
+                    <input type="email" id="admin-email" placeholder="admin@learntrack.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password">Admin Password</label>
+                    <input type="password" id="admin-password" placeholder="Enter admin password" required>
+                </div>
+                
+                <div class="security-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Security Notice:</strong> This area is restricted to authorized personnel only. 
+                    Unauthorized access attempts will be logged and may result in legal action.
+                </div>
+                
+                <button type="submit" class="admin-login-submit">
+                    <i class="fas fa-lock"></i>
+                    Access Admin Panel
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 LearnTrack. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginBtn = document.getElementById('loginBtn');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminPopup = document.getElementById('adminPopup');
+            const closePopup = document.getElementById('closePopup');
+            const adminForm = document.getElementById('adminForm');
+            
+            // Regular user login
+            loginBtn.addEventListener('click', function() {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                if (!email || !password) {
+                    alert('Please enter both email and password');
+                    return;
+                }
+                
+                // In a real app, this would authenticate with a server
+                alert('Regular user login functionality would go here');
+            });
+            
+            // Open admin login popup
+            adminLoginBtn.addEventListener('click', function() {
+                adminPopup.classList.add('active');
+            });
+            
+            // Close admin login popup
+            closePopup.addEventListener('click', function() {
+                adminPopup.classList.remove('active');
+            });
+            
+            // Admin login form submission
+            adminForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const adminEmail = document.getElementById('admin-email').value;
+                const adminPassword = document.getElementById('admin-password').value;
+                
+                if (!adminEmail || !adminPassword) {
+                    alert('Please enter both admin email and password');
+                    return;
+                }
+                
+                // Simple validation for demo purposes
+                if (adminEmail === 'admin@learntrack.com' && adminPassword === 'admin123') {
+                    // Successful login - redirect to admin panel
+                    window.location.href = 'admin-users.html';
+                } else {
+                    alert('Invalid admin credentials. Please try again.');
+                }
+            });
+            
+            // Close popup when clicking outside the content
+            adminPopup.addEventListener('click', function(e) {
+                if (e.target === adminPopup) {
+                    adminPopup.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
