@@ -497,58 +497,217 @@
             </div>
         </div>
     </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const successPopup = document.getElementById('successPopup');
+        const progressBar = document.getElementById('progressBar');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
 
-    <script>
-        document.getElementById('signupForm').addEventListener('submit', function(e) {
+        // API Configuration - Updated with your actual Railway URL
+        const RAILWAY_BACKEND_URL = 'https://learn-track-production.up.railway.app';
+        const API_BASE_URL = `${RAILWAY_BACKEND_URL}/api/auth`;
+        
+        // Use your Railway URL directly
+        const FINAL_API_URL = API_BASE_URL;
+
+        signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Clear previous errors
+            hideError();
+            
             // Get form values
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const role = document.getElementById('role').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            const errorMessage = document.getElementById('errorMessage');
             
-            // Validate passwords match
+            // Enhanced validation
+            if (!firstName || !lastName || !email || !role || !password || !confirmPassword) {
+                showError('Please fill in all fields');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email address');
+                return;
+            }
+            
             if (password !== confirmPassword) {
-                errorMessage.textContent = "Passwords do not match. Please try again.";
-                errorMessage.classList.add('show');
+                showError('Passwords do not match');
                 return;
             }
             
-            // Validate password length
             if (password.length < 6) {
-                errorMessage.textContent = "Password must be at least 6 characters long.";
-                errorMessage.classList.add('show');
+                showError('Password must be at least 6 characters long');
                 return;
             }
             
-            // Check if terms are agreed
-            if (!document.getElementById('agreeTerms').checked) {
-                errorMessage.textContent = "Please agree to the Terms of Service and Privacy Policy.";
-                errorMessage.classList.add('show');
+            if (!document.getElementById('terms').checked) {
+                showError('Please agree to the Terms of Service and Privacy Policy');
                 return;
             }
             
-            // Simulate form submission (remove this in production)
-            errorMessage.textContent = "Creating account...";
-            errorMessage.style.background = "rgba(0, 255, 0, 0.1)";
-            errorMessage.style.borderColor = "rgba(0, 255, 0, 0.3)";
-            errorMessage.style.color = "#6bff6b";
-            errorMessage.classList.add('show');
-            
-            // In a real application, you would send the data to your server here
-            setTimeout(() => {
-                alert('Account created successfully! In a real application, this would redirect to the dashboard.');
-                // window.location.href = 'dashboard.html'; // Redirect after successful signup
-            }, 2000);
+            // Disable button during processing
+            signupBtn.disabled = true;
+            signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+
+            try {
+                console.log('Sending registration request to:', `${FINAL_API_URL}/register`);
+                console.log('Sending data:', { firstName, lastName, email, role });
+                
+                // Send data to backend
+                const response = await fetch(`${FINAL_API_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        role: role
+                    })
+                });
+
+                // Check if response is OK
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Unknown error occurred' }));
+                    throw new Error(errorData.error || `Registration failed with status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                console.log('Response received:', data);
+
+                // Show success popup with specific message
+                successMessage.textContent = data.message || 'Registration successful! Please check your email for verification.';
+                successPopup.classList.add('active');
+                
+                // Start progress bar animation
+                progressBar.style.width = '100%';
+                
+                // Redirect to login page after 5 seconds
+                setTimeout(function() {
+                    window.location.href = 'login.html';
+                }, 5000);
+                
+            } catch (error) {
+                console.error('Registration error:', error);
+                
+                // More specific error handling
+                if (error.message.includes('Failed to fetch')) {
+                    showError('Unable to connect to the server. Please check: 1) Your internet connection 2) The backend server is running 3) CORS is configured properly');
+                } else if (error.message.includes('User already exists')) {
+                    showError('An account with this email already exists. Please use a different email or try logging in.');
+                } else if (error.message.includes('NetworkError')) {
+                    showError('Network error. Please check your connection and try again.');
+                } else {
+                    showError(error.message || 'An unexpected error occurred. Please try again.');
+                }
+            } finally {
+                // Reset button state
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+            }
         });
         
-        // Hide error message when user starts typing
-        const inputs = document.querySelectorAll('input, select');
-        inputs.forEach(input => {
-            input.addEventListener('input', () => {
-                document.getElementById('errorMessage').classList.remove('show');
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Error display functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+        
+        // Real-time password validation
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            if (password.length > 0 && password.length < 6) {
+                this.style.borderColor = '#ff4757';
+            } else if (password.length >= 6) {
+                this.style.borderColor = '#2ed573';
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+        
+        // Real-time password match checking
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword.length > 0) {
+                if (password === confirmPassword) {
+                    this.style.borderColor = '#2ed573';
+                } else {
+                    this.style.borderColor = '#ff4757';
+                }
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+        
+        // Simulate social signup buttons
+        const socialBtns = document.querySelectorAll('.social-btn');
+        socialBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                showError('Social signup is not available in this demo. Please use the form above.');
             });
         });
-    </script>
+
+        // Test backend connection on page load
+        async function testBackendConnection() {
+            try {
+                const healthCheckUrl = FINAL_API_URL.replace('/register', '/health');
+                console.log('Testing backend connection to:', healthCheckUrl);
+                
+                const response = await fetch(healthCheckUrl);
+                if (response.ok) {
+                    const healthData = await response.json();
+                    console.log('Backend connection successful:', healthData);
+                } else {
+                    console.warn('Backend health check failed. Status:', response.status);
+                }
+            } catch (error) {
+                console.warn('Cannot connect to backend. This may affect registration:', error.message);
+            }
+        }
+
+        // Test connection when page loads
+        testBackendConnection();
+
+        // Also test the specific register endpoint (OPTIONS request for CORS)
+        async function testCORSAccess() {
+            try {
+                const response = await fetch(`${FINAL_API_URL}/register`, {
+                    method: 'OPTIONS'
+                });
+                console.log('CORS preflight check:', response.status === 200 ? 'Success' : 'Failed');
+            } catch (error) {
+                console.warn('CORS preflight failed:', error.message);
+            }
+        }
+
+        testCORSAccess();
+    });
+</script>
 </body>
 </html>
