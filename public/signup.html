@@ -101,7 +101,8 @@
             color: #555;
         }
         
-        .form-group input {
+        .form-group input,
+        .form-group select {
             padding: 14px;
             border: 2px solid #e0e0e0;
             border-radius: 8px;
@@ -109,7 +110,8 @@
             transition: all 0.3s ease;
         }
         
-        .form-group input:focus {
+        .form-group input:focus,
+        .form-group select:focus {
             border-color: #3949ab;
             outline: none;
             box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.2);
@@ -175,6 +177,13 @@
         
         .signup-btn:active {
             transform: translateY(0);
+        }
+        
+        .signup-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .divider {
@@ -363,6 +372,16 @@
             margin: 0;
         }
         
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+        
         footer {
             margin-top: 30px;
             text-align: center;
@@ -438,10 +457,20 @@
                     <label for="email">Email Address</label>
                     <input type="email" id="email" placeholder="Enter your email" required>
                 </div>
+
+                <div class="form-group">
+                    <label for="role">I am a</label>
+                    <select id="role" required>
+                        <option value="">Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="instructor">Instructor</option>
+                    </select>
+                </div>
                 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" placeholder="Create a password" required>
+                    <small style="color: #666; font-size: 0.8rem;">Must be at least 6 characters</small>
                 </div>
                 
                 <div class="form-group">
@@ -453,6 +482,8 @@
                     <input type="checkbox" id="terms" required>
                     <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that LearnTrack may use my email to send me updates and offers.</label>
                 </div>
+
+                <div class="error-message" id="errorMessage"></div>
                 
                 <button type="submit" class="signup-btn" id="signupBtn">
                     <i class="fas fa-user-plus"></i>
@@ -486,7 +517,7 @@
         <div class="popup-content">
             <i class="fas fa-check-circle"></i>
             <h2>Account Created Successfully!</h2>
-            <p>Your LearnTrack account has been created. You'll be redirected to the login page to access your new account.</p>
+            <p id="successMessage">Your LearnTrack account has been created. You'll be redirected to the login page to access your new account.</p>
             <div class="progress-bar">
                 <div class="progress" id="progressBar"></div>
             </div>
@@ -514,29 +545,48 @@
     <footer>
         <p>&copy; 2025 LearnTrack. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const signupForm = document.getElementById('signupForm');
         const signupBtn = document.getElementById('signupBtn');
         const successPopup = document.getElementById('successPopup');
         const progressBar = document.getElementById('progressBar');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+
+        // API Configuration - IMPORTANT: Update these URLs based on your deployment
+        const RAILWAY_BACKEND_URL = 'https://your-railway-project.up.railway.app'; // Replace with your Railway URL
+        const API_BASE_URL = `${RAILWAY_BACKEND_URL}/api/auth`; // Your backend API base URL
         
-        // API base URL - adjust based on your deployment
-        const API_BASE_URL = 'http://localhost:3000/api'; // Change in production
+        // Development fallback
+        const LOCAL_BACKEND_URL = 'http://localhost:3000/api/auth';
         
+        // Use Railway URL if available, otherwise fallback to localhost for development
+        const FINAL_API_URL = RAILWAY_BACKEND_URL.includes('your-railway-project') ? LOCAL_BACKEND_URL : API_BASE_URL;
+
         signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Clear previous errors
+            hideError();
             
             // Get form values
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
-            const email = document.getElementById('email').value.trim();
+            const email = document.getElementById('email').value.trim().toLowerCase();
+            const role = document.getElementById('role').value;
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             
-            // Basic validation
-            if (!firstName || !lastName || !email || !password || !confirmPassword) {
+            // Enhanced validation
+            if (!firstName || !lastName || !email || !role || !password || !confirmPassword) {
                 showError('Please fill in all fields');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('Please enter a valid email address');
                 return;
             }
             
@@ -550,45 +600,65 @@
                 return;
             }
             
+            if (!document.getElementById('terms').checked) {
+                showError('Please agree to the Terms of Service and Privacy Policy');
+                return;
+            }
+            
             // Disable button during processing
             signupBtn.disabled = true;
             signupBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
-            
+
             try {
-                // Send data to backend
-                const response = await fetch(`${API_BASE_URL}/signup`, {
+                console.log('Sending registration request to:', `${FINAL_API_URL}/register`);
+                
+                // Send data to backend - matching your API structure
+                const response = await fetch(`${FINAL_API_URL}/register`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     },
                     body: JSON.stringify({
-                        firstName,
-                        lastName,
-                        email,
-                        password,
-                        confirmPassword
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        role: role
+                        // Note: confirmPassword is not sent to backend as it's only for frontend validation
                     })
                 });
-                
+
                 const data = await response.json();
-                
+                console.log('Response received:', data);
+
                 if (!response.ok) {
-                    throw new Error(data.error || 'Signup failed');
+                    throw new Error(data.error || `Registration failed with status: ${response.status}`);
                 }
-                
-                // Show success popup
+
+                // Show success popup with specific message
+                successMessage.textContent = data.message || 'Registration successful! Please check your email for verification.';
                 successPopup.classList.add('active');
                 
                 // Start progress bar animation
                 progressBar.style.width = '100%';
                 
-                // Redirect to login page after 3 seconds
+                // Redirect to login page after 5 seconds
                 setTimeout(function() {
                     window.location.href = 'login.html';
-                }, 3000);
+                }, 5000);
                 
             } catch (error) {
-                showError(error.message);
+                console.error('Registration error:', error);
+                
+                // More specific error handling
+                if (error.message.includes('Failed to fetch')) {
+                    showError('Unable to connect to the server. Please check your internet connection and try again.');
+                } else if (error.message.includes('User already exists')) {
+                    showError('An account with this email already exists. Please use a different email or try logging in.');
+                } else {
+                    showError(error.message || 'An unexpected error occurred. Please try again.');
+                }
             } finally {
                 // Reset button state
                 signupBtn.disabled = false;
@@ -596,19 +666,77 @@
             }
         });
         
-        // Error display function
-        function showError(message) {
-            // You can implement a better error display system
-            alert('Error: ' + message);
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
         }
+        
+        // Error display functions
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Scroll to error message
+            errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        function hideError() {
+            errorMessage.style.display = 'none';
+        }
+        
+        // Real-time password validation
+        document.getElementById('password').addEventListener('input', function() {
+            const password = this.value;
+            if (password.length > 0 && password.length < 6) {
+                this.style.borderColor = '#ff4757';
+            } else if (password.length >= 6) {
+                this.style.borderColor = '#2ed573';
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
+        
+        // Real-time password match checking
+        document.getElementById('confirmPassword').addEventListener('input', function() {
+            const password = document.getElementById('password').value;
+            const confirmPassword = this.value;
+            
+            if (confirmPassword.length > 0) {
+                if (password === confirmPassword) {
+                    this.style.borderColor = '#2ed573';
+                } else {
+                    this.style.borderColor = '#ff4757';
+                }
+            } else {
+                this.style.borderColor = '#e0e0e0';
+            }
+        });
         
         // Simulate social signup buttons
         const socialBtns = document.querySelectorAll('.social-btn');
         socialBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                alert('This is a demo. In a real application, this would initiate social signup.');
+                showError('Social signup is not available in this demo. Please use the form above.');
             });
         });
+
+        // Test backend connection on page load
+        async function testBackendConnection() {
+            try {
+                const response = await fetch(`${FINAL_API_URL.replace('/register', '/health')}`);
+                if (response.ok) {
+                    console.log('Backend connection successful');
+                } else {
+                    console.warn('Backend health check failed');
+                }
+            } catch (error) {
+                console.warn('Cannot connect to backend:', error.message);
+            }
+        }
+
+        // Test connection when page loads
+        testBackendConnection();
     });
 </script>
 </body>
