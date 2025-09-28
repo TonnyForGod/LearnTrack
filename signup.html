@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    form { max-width: 400px; margin: auto; display: flex; flex-direction: column; }
+    input, button, select { margin: 8px 0; padding: 10px; font-size: 1rem; }
+    button { cursor: pointer; background: #007bff; color: white; border: none; border-radius: 4px; }
+    button:hover { background: #0056b3; }
+    .message { margin-top: 10px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <h2>Create an Account</h2>
+  <form id="registerForm">
+    <input type="text" id="firstName" placeholder="First Name" required>
+    <input type="text" id="lastName" placeholder="Last Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <select id="role" required>
+      <option value="">Select role...</option>
+      <option value="student">Student</option>
+      <option value="instructor">Instructor</option>
+      <option value="admin">Admin</option>
+    </select>
+    <button type="submit">Register</button>
+    <div id="responseMessage" class="message"></div>
+  </form>
+
+  <script>
+    const API_BASE_URL = "https://learntrack.up.railway.app";
+
+    document.getElementById("registerForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+      const role = document.getElementById("role").value;
+      const responseMessage = document.getElementById("responseMessage");
+
+      // Basic validation
+      if (!firstName || !lastName || !email || !password || !role) {
+        responseMessage.style.color = "red";
+        responseMessage.textContent = "All fields are required.";
+        return;
+      }
+      if (password.length < 6) {
+        responseMessage.style.color = "red";
+        responseMessage.textContent = "Password must be at least 6 characters.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ firstName, lastName, email, password, role })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Server error");
+        responseMessage.style.color = "green";
+        responseMessage.textContent = data.message || "Registration successful!";
+      } catch (err) {
+        responseMessage.style.color = "red";
+        responseMessage.textContent = "Error: " + err.message;
+      }
+    });
+  </script>
+
+</body>
+</html>
