@@ -1,3 +1,4 @@
-DATABASE_URL=postgresql://neondb_owner:npg_axUOy94hKYlG@ep-sparkling-pond-ad8fvzcq-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
+DATABASE_URL=postgresql://neondb_owner:npg_axUOy94hKYlG@ep-sparkling-pond-ad8fvzcq-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require
+
 NODE_ENV=production
 PORT=3000
