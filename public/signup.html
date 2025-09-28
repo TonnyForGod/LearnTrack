@@ -3,500 +3,549 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - LearnTrack</title>
+    <title>Create Account - LearnTrack</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #fff;
+            background: linear-gradient(135deg, #1a237e, #4a148c);
+            color: #333;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
-
+        
         .container {
+            max-width: 500px;
             width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            position: relative;
+            animation: fadeIn 0.6s ease-out;
         }
-
-        /* Header Styles */
-        header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
+        
+        .header {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
         }
-
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo img {
-            height: 40px;
-        }
-
-        .logo-text {
-            font-size: 24px;
-            font-weight: 700;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 16px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            padding: 8px 12px;
-            border-radius: 4px;
-        }
-
-        .nav-links a:hover {
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            left: -50px;
+            width: 150px;
+            height: 150px;
             background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
         }
-
-        .nav-buttons {
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            right: -80px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #3949ab;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.2);
+        }
+        
+        .name-group {
             display: flex;
             gap: 15px;
         }
-
-        .btn {
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 15px;
-            border: none;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
+        
+        .name-group .form-group {
+            flex: 1;
         }
-
-        .btn-login {
-            background: transparent;
-            color: #fff;
-            border: 2px solid #00c6ff;
-        }
-
-        .btn-login:hover {
-            background: rgba(0, 198, 255, 0.1);
-        }
-
-        .btn-signup {
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            color: white;
-            border: 2px solid transparent;
-        }
-
-        .btn-signup:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
-        }
-
-        /* Signup Form Styles */
-        .signup-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 80vh;
-            padding: 40px 0;
-        }
-
-        .signup-form {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 15px;
-            width: 100%;
-            max-width: 500px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-
-        .signup-form h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 32px;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #e0e0e0;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #00c6ff;
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .form-group input::placeholder {
-            color: #aaa;
-        }
-
-        .checkbox-group {
+        
+        .terms {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            margin-bottom: 25px;
+            margin: 10px 0;
         }
-
-        .checkbox-group input {
-            margin-top: 3px;
+        
+        .terms input {
+            margin-top: 4px;
         }
-
-        .checkbox-group label {
-            font-size: 14px;
-            color: #aaa;
-            line-height: 1.4;
+        
+        .terms label {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.5;
         }
-
-        .checkbox-group a {
-            color: #00c6ff;
+        
+        .terms a {
+            color: #3949ab;
             text-decoration: none;
+            font-weight: 600;
         }
-
-        .checkbox-group a:hover {
+        
+        .terms a:hover {
             text-decoration: underline;
         }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(to right, #00c6ff, #0072ff);
+        
+        .signup-btn {
+            background: linear-gradient(135deg, #3949ab, #6a1b9a);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
+            padding: 16px;
+            font-size: 1.1rem;
             font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(57, 73, 171, 0.4);
+        }
+        
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+        
+        .signup-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 15px;
+            color: #777;
+        }
+        
+        .social-signup {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: white;
             cursor: pointer;
             transition: all 0.3s ease;
         }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+        
+        .social-btn:hover {
+            transform: translateY(-5px);
         }
-
-        .error-message {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid rgba(255, 0, 0, 0.3);
-            color: #ff6b6b;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-            display: none;
+        
+        .google {
+            background: #db4437;
         }
-
-        .error-message.show {
-            display: block;
+        
+        .facebook {
+            background: #4267B2;
         }
-
-        .login-link {
+        
+        .twitter {
+            background: #1DA1F2;
+        }
+        
+        .login-redirect {
             text-align: center;
             margin-top: 20px;
-            color: #aaa;
+            color: #555;
         }
-
-        .login-link a {
-            color: #00c6ff;
+        
+        .login-redirect a {
+            color: #3949ab;
             text-decoration: none;
+            font-weight: 600;
         }
-
-        .login-link a:hover {
+        
+        .login-redirect a:hover {
             text-decoration: underline;
         }
-
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 60px 0 30px;
-            margin-top: auto;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-info {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .footer-info h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00c6ff;
-        }
-
-        .footer-info p {
-            color: #aaa;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .contact-info {
-            margin-top: 20px;
-        }
-
-        .contact-item {
+        
+        .success-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
             display: flex;
             align-items: center;
-            gap: 15px;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .success-popup.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .popup-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            transform: scale(0.8);
+            transition: transform 0.5s ease;
+        }
+        
+        .success-popup.active .popup-content {
+            transform: scale(1);
+        }
+        
+        .popup-content i {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            animation: bounce 1s ease infinite;
+        }
+        
+        .popup-content h2 {
+            font-size: 2.2rem;
             margin-bottom: 15px;
-            color: #aaa;
+            color: #3949ab;
         }
-
-        .contact-item i {
-            color: #00c6ff;
-            font-size: 18px;
+        
+        .popup-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
-
-        .footer-links {
+        
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0%;
+            background: #4CAF50;
+            transition: width 3s linear;
+        }
+        
+        .next-steps {
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .next-steps h3 {
+            color: #3949ab;
+            margin-bottom: 15px;
+        }
+        
+        .steps-list {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             gap: 15px;
+            margin-top: 20px;
         }
-
-        .footer-links a {
-            color: #aaa;
-            text-decoration: none;
+        
+        .step {
+            background: #f5f7ff;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            flex: 1;
+            border: 2px solid #e0e0e0;
             transition: all 0.3s ease;
         }
-
-        .footer-links a:hover {
-            color: #00c6ff;
+        
+        .step:hover {
+            transform: translateY(-5px);
+            border-color: #3949ab;
         }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 30px;
+        
+        .step i {
+            font-size: 2rem;
+            color: #3949ab;
+            margin-bottom: 10px;
+            animation: none;
+        }
+        
+        .step p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            border-left: 4px solid #c62828;
+        }
+        
+        footer {
+            margin-top: 30px;
             text-align: center;
-            color: #777;
-            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
         }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .navbar {
+        
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+        
+        @media (max-width: 480px) {
+            .header {
+                padding: 30px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .name-group {
                 flex-direction: column;
                 gap: 20px;
             }
             
-            .nav-links {
-                gap: 15px;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .signup-form {
-                padding: 30px 20px;
-                margin: 0 20px;
-            }
-            
-            .signup-form h2 {
-                font-size: 28px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-buttons {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .signup-form {
-                padding: 20px 15px;
-            }
-            
-            .signup-form h2 {
-                font-size: 24px;
+            .steps-list {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header with Navigation -->
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <div class="logo">
-                    <i class="fas fa-graduation-cap"></i>
-                    <span class="logo-text">LearnTrack</span>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="Courses.html">Explore Courses</a></li>
-                    <li><a href="AboutUs.html">About Us</a></li>
-                </ul>
-                <div class="nav-buttons">
-                    <a href="login.html" class="btn btn-login">Log in</a>
-                    <a href="index.html" class="btn btn-signup">Home</a>
-                </div>
-            </nav>
+    <div class="container">
+        <div class="header">
+            <h1>Create Your Account</h1>
+            <p>Join LearnTrack to start your learning journey</p>
         </div>
-    </header>
-
-    <!-- Signup Form -->
-    <main>
-        <div class="container">
-            <div class="signup-container">
-                <form class="signup-form" id="signupForm">
-                    <h2>Create Your Account</h2>
-                    
-                    <div class="error-message" id="errorMessage">
-                        Unable to connect to the server. Please check your internet connection and try again.
-                    </div>
-                    
+        
+        <div class="content">
+            <form class="signup-form" id="signupForm">
+                <div class="name-group">
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Khomotso" required>
+                        <input type="text" id="firstName" placeholder="Enter your first name" required>
                     </div>
-                    
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Rakgoropo" required>
+                        <input type="text" id="lastName" placeholder="Enter your last name" required>
                     </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="khomotsorakgoropo02@gmail.com" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="userType">I am a</label>
-                        <select id="userType" name="userType" required>
-                            <option value="">Select your role</option>
-                            <option value="student">Student</option>
-                            <option value="lecturer">Lecturer</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="······" required minlength="6">
-                        <small style="color: #aaa; font-size: 12px;">Must be at least 6 characters</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="······" required>
-                    </div>
-                    
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
-                        <label for="agreeTerms">
-                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. 
-                            I understand that LearnTrack may use my email to send me updates and offers.
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn">Create Account</button>
-                    
-                    <div class="login-link">
-                        Already have an account? <a href="login.html">Log in</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </main>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email" required>
+                </div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <h3>University of Mpumalanga</h3>
-                    <p>LearnTrack connects students and lecturers in a thriving educational marketplace. Learn, earn, and grow—all in one place!</p>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <span>LearnTrack@gmail.com</span>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <span>011 256 7001</span>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="role">I am a</label>
+                    <select id="role" required>
+                        <option value="">Select your role</option>
+                        <option value="student">Student</option>
+                        <option value="instructor">Instructor</option>
+                    </select>
                 </div>
-                <div class="footer-links">
-                    <h3>Quick Links</h3>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">FAQ</a>
-                    <a href="#">Support Center</a>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Create a password" required>
+                    <small style="color: #666; font-size: 0.8rem;">Must be at least 6 characters</small>
                 </div>
-                <div class="footer-links">
-                    <h3>Resources</h3>
-                    <a href="#">Blog</a>
-                    <a href="#">Events</a>
-                    <a href="#">Tutorials</a>
-                    <a href="#">Community</a>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+                
+                <div class="terms">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that LearnTrack may use my email to send me updates and offers.</label>
+                </div>
+
+                <div class="error-message" id="errorMessage"></div>
+                
+                <button type="submit" class="signup-btn" id="signupBtn">
+                    <i class="fas fa-user-plus"></i>
+                    Create Account
+                </button>
+            </form>
+            
+            <div class="divider">
+                <span>or sign up with</span>
+            </div>
+            
+            <div class="social-signup">
+                <div class="social-btn google">
+                    <i class="fab fa-google"></i>
+                </div>
+                <div class="social-btn facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+                <div class="social-btn twitter">
+                    <i class="fab fa-twitter"></i>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>© 2025 LearnTrack. All rights reserved.</p>
+            
+            <div class="login-redirect">
+                <p>Already have an account? <a href="login.html">Log in now</a></p>
             </div>
         </div>
+    </div>
+    
+    <div class="success-popup" id="successPopup">
+        <div class="popup-content">
+            <i class="fas fa-check-circle"></i>
+            <h2>Account Created Successfully!</h2>
+            <p id="successMessage">Your LearnTrack account has been created. You'll be redirected to the login page to access your new account.</p>
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            
+            <div class="next-steps">
+                <h3>What's Next?</h3>
+                <div class="steps-list">
+                    <div class="step">
+                        <i class="fas fa-envelope"></i>
+                        <p>Verify your email</p>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-user"></i>
+                        <p>Complete your profile</p>
+                    </div>
+                    <div class="step">
+                        <i class="fas fa-book"></i>
+                        <p>Start learning</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 LearnTrack. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </footer>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const signupForm = document.getElementById('signupForm');
@@ -505,14 +554,15 @@
         const progressBar = document.getElementById('progressBar');
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
-// API Configuration
-const RAILWAY_BACKEND_URL = 'https://your-app-name.up.railway.app'; // Replace with your actual Railway URL
-const LOCAL_BACKEND_URL = 'http://localhost:3000';
 
-// Use Railway URL in production, localhost in development
-const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-const API_BASE_URL = isProduction ? RAILWAY_BACKEND_URL : LOCAL_BACKEND_URL;
-const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
+        // API Configuration - UPDATED FOR RAILWAY DEPLOYMENT
+        const RAILWAY_BACKEND_URL = 'https://learntrack.up.railway.app'; // REPLACE WITH YOUR ACTUAL RAILWAY URL
+   
+
+        // Use Railway URL in production, localhost in development
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const API_BASE_URL = isProduction ? RAILWAY_BACKEND_URL : LOCAL_BACKEND_URL;
+        const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
 
         signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -560,31 +610,29 @@ const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
 
             try {
                 console.log('Sending registration request to:', `${FINAL_API_URL}/register`);
-                console.log('Sending data:', { firstName, lastName, email, role });
-                // In your form submit handler:
                 
-const response = await fetch(`${FINAL_API_URL}/register`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: password,
-    role: role
-  })
-});
-
-                // Check if response is OK
-                if (!response.ok) {
-                    const errorData = await response.json().catch(() => ({ error: 'Unknown error occurred' }));
-                    throw new Error(errorData.error || `Registration failed with status: ${response.status}`);
-                }
+                // Send data to backend - matching your API structure
+                const response = await fetch(`${FINAL_API_URL}/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                        password: password,
+                        role: role
+                    })
+                });
 
                 const data = await response.json();
                 console.log('Response received:', data);
+
+                if (!response.ok) {
+                    throw new Error(data.error || `Registration failed with status: ${response.status}`);
+                }
 
                 // Show success popup with specific message
                 successMessage.textContent = data.message || 'Registration successful! Please check your email for verification.';
@@ -603,11 +651,9 @@ const response = await fetch(`${FINAL_API_URL}/register`, {
                 
                 // More specific error handling
                 if (error.message.includes('Failed to fetch')) {
-                    showError('Unable to connect to the server. Please check: 1) Your internet connection 2) The backend server is running 3) CORS is configured properly');
+                    showError('Unable to connect to the server. Please check your internet connection and try again.');
                 } else if (error.message.includes('User already exists')) {
                     showError('An account with this email already exists. Please use a different email or try logging in.');
-                } else if (error.message.includes('NetworkError')) {
-                    showError('Network error. Please check your connection and try again.');
                 } else {
                     showError(error.message || 'An unexpected error occurred. Please try again.');
                 }
@@ -665,41 +711,30 @@ const response = await fetch(`${FINAL_API_URL}/register`, {
             }
         });
         
+        // Simulate social signup buttons
+        const socialBtns = document.querySelectorAll('.social-btn');
+        socialBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                showError('Social signup is not available in this demo. Please use the form above.');
+            });
+        });
 
         // Test backend connection on page load
         async function testBackendConnection() {
             try {
-                const healthCheckUrl = FINAL_API_URL.replace('/register', '/health');
-                console.log('Testing backend connection to:', healthCheckUrl);
-                
-                const response = await fetch(healthCheckUrl);
+                const response = await fetch(`${API_BASE_URL}/api/health`);
                 if (response.ok) {
-                    const healthData = await response.json();
-                    console.log('Backend connection successful:', healthData);
+                    console.log('Backend connection successful');
                 } else {
-                    console.warn('Backend health check failed. Status:', response.status);
+                    console.warn('Backend health check failed');
                 }
             } catch (error) {
-                console.warn('Cannot connect to backend. This may affect registration:', error.message);
+                console.warn('Cannot connect to backend:', error.message);
             }
         }
 
         // Test connection when page loads
         testBackendConnection();
-
-        // Also test the specific register endpoint (OPTIONS request for CORS)
-        async function testCORSAccess() {
-            try {
-                const response = await fetch(`${FINAL_API_URL}/register`, {
-                    method: 'OPTIONS'
-                });
-                console.log('CORS preflight check:', response.status === 200 ? 'Success' : 'Failed');
-            } catch (error) {
-                console.warn('CORS preflight failed:', error.message);
-            }
-        }
-
-        testCORSAccess();
     });
 </script>
 </body>
