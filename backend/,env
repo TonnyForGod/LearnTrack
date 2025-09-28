@@ -1,0 +1,3 @@
+DATABASE_URL=${{Postgres.DATABASE_URL}}
+NODE_ENV=production
+PORT=3000
