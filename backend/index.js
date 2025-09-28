@@ -1,30 +1,18 @@
-import express from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+require('dotenv').config();
 
-// Routes
-import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/admin.js';
-
-dotenv.config();
+const authRoutes = require('./routes/auth');
+const usersRoutes = require('./routes/users');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// CORS configuration for GitHub Pages
-app.use(cors({
-  origin: [
-    'https://tonnyforgod.github.io/LearnTrack/', // Your GitHub Pages URL
-   
-  ],
-  credentials: true
-}));
-
+app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/users', usersRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {
@@ -38,5 +26,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
