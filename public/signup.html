@@ -505,13 +505,14 @@
         const progressBar = document.getElementById('progressBar');
         const errorMessage = document.getElementById('errorMessage');
         const successMessage = document.getElementById('successMessage');
+// API Configuration
+const RAILWAY_BACKEND_URL = 'https://your-app-name.up.railway.app'; // Replace with your actual Railway URL
+const LOCAL_BACKEND_URL = 'http://localhost:3000';
 
-        // API Configuration - Updated with your actual Railway URL
-        const RAILWAY_BACKEND_URL = 'https://learn-track-production.up.railway.app';
-        const API_BASE_URL = `${RAILWAY_BACKEND_URL}/api/auth`;
-        
-        // Use your Railway URL directly
-        const FINAL_API_URL = API_BASE_URL;
+// Use Railway URL in production, localhost in development
+const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+const API_BASE_URL = isProduction ? RAILWAY_BACKEND_URL : LOCAL_BACKEND_URL;
+const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
 
         signupForm.addEventListener('submit', async function(e) {
             e.preventDefault();
