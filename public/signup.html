@@ -561,22 +561,21 @@ const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
             try {
                 console.log('Sending registration request to:', `${FINAL_API_URL}/register`);
                 console.log('Sending data:', { firstName, lastName, email, role });
+                // In your form submit handler:
                 
-                // Send data to backend
-                const response = await fetch(`${FINAL_API_URL}/register`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        password: password,
-                        role: role
-                    })
-                });
+const response = await fetch(`${FINAL_API_URL}/register`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: password,
+    role: role
+  })
+});
 
                 // Check if response is OK
                 if (!response.ok) {
@@ -666,13 +665,6 @@ const FINAL_API_URL = `${API_BASE_URL}/api/auth`;
             }
         });
         
-        // Simulate social signup buttons
-        const socialBtns = document.querySelectorAll('.social-btn');
-        socialBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                showError('Social signup is not available in this demo. Please use the form above.');
-            });
-        });
 
         // Test backend connection on page load
         async function testBackendConnection() {
