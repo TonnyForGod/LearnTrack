@@ -10,9 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// PostgreSQL connection using your Neon database URL
+// PostgreSQL connection - Updated for Railway
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || "postgresql://neondb_owner:npg_axUOy94hKYlG@ep-sparkling-pond-ad8fvzcq-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
+  connectionString: process.env.DATABASE_URL,
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
@@ -20,8 +20,16 @@ const pool = new Pool({
 pool.connect((err, client, release) => {
   if (err) {
     console.error('Error acquiring client', err.stack);
+    console.error('Database connection details:', {
+      host: process.env.DATABASE_URL ? new URL(process.env.DATABASE_URL).hostname : 'not set',
+      database: process.env.DATABASE_URL ? new URL(process.env.DATABASE_URL).pathname.substring(1) : 'not set'
+    });
   } else {
-    console.log('Connected to PostgreSQL database');
+    console.log('✅ Connected to PostgreSQL database');
+    console.log('Database connection details:', {
+      host: new URL(process.env.DATABASE_URL).hostname,
+      database: new URL(process.env.DATABASE_URL).pathname.substring(1)
+    });
     release();
   }
 });
@@ -42,21 +50,38 @@ CREATE TABLE IF NOT EXISTS users (
 
 pool.query(createTableQuery, (err) => {
   if (err) {
-    console.error('Error creating table', err);
+    console.error('❌ Error creating table:', err);
   } else {
-    console.log('Users table ready');
+    console.log('✅ Users table ready');
   }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'OK', database: 'Connected' });
+// Health check endpoint with database test
+app.get('/api/health', async (req, res) => {
+  try {
+    // Test database connection
+    const dbResult = await pool.query('SELECT NOW() as current_time');
+    res.json({ 
+      status: 'OK', 
+      database: 'Connected',
+      timestamp: dbResult.rows[0].current_time
+    });
+  } catch (error) {
+    console.error('Health check failed:', error);
+    res.status(500).json({ 
+      status: 'ERROR', 
+      database: 'Disconnected',
+      error: error.message 
+    });
+  }
 });
 
 // Registration endpoint
 app.post('/api/auth/register', async (req, res) => {
   try {
     const { firstName, lastName, email, password, role } = req.body;
+
+    console.log('Registration attempt:', { firstName, lastName, email, role });
 
     // Validation
     if (!firstName || !lastName || !email || !password || !role) {
@@ -90,6 +115,7 @@ app.post('/api/auth/register', async (req, res) => {
     );
 
     const user = result.rows[0];
+    console.log('User registered successfully:', user.email);
 
     res.status(201).json({
       message: 'User registered successfully',
@@ -146,7 +172,20 @@ app.post('/api/auth/login', async (req, res) => {
   }
 });
 
+// Get all users (for testing - remove in production)
+app.get('/api/users', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT id, first_name, last_name, email, role, created_at FROM users');
+    res.json({ users: result.rows });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`🔗 Database URL: ${process.env.DATABASE_URL ? 'Set' : 'Not set'}`);
 });
