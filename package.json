@@ -1,18 +1,5 @@
 {
-  "name": "my-website",
-  "version": "1.0.0",
-  "description": "A simple website connected to Neon database",
-  "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
-  "dependencies": {
-    "dotenv": "^16.6.1",
-    "express": "^4.21.2",
-    "pg": "^8.16.3"
-  },
-  "devDependencies": {
-    "nodemon": "^3.0.1"
+    "build": "react-scripts build"
   }
 }
