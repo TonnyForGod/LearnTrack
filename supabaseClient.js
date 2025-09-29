@@ -1,8 +1,3 @@
-import { createClient } from '@supabase/supabase-js'
-
-// ⚠️ REPLACE THESE WITH YOUR ACTUAL SUPABASE CREDENTIALS ⚠️
-const supabaseUrl = 'https://ibhusesudujlyfluspzq.supabase.co'  // ← Your actual Project URL
-const supabaseAnonKey = ''  // ← Your actual anon key
 
 import { createClient } from '@supabase/supabase-js'
 
