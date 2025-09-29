@@ -1,3 +1,2 @@
-DATABASE_URL=postgresql://neondb_owner:npg_axUOy94hKYlG@ep-sparkling-pond-ad8fvzcq-pooler.c-2.us-east-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
-NODE_ENV=production
-PORT=3000
+REACT_APP_SUPABASE_URL=https://ibhusesudujlyfluspzq.supabase.co
+REACT_APP_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImliaHVzZXN1ZHVqbHlmbHVzcHpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkwOTgzNDksImV4cCI6MjA3NDY3NDM0OX0.GiNvkUqHpnGF2v5yHzHuOgXeWs15Xr1Y4iEefowWSzo
